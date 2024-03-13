@@ -4,7 +4,7 @@ public class BombImpact : MonoBehaviour
 {
     const float MAX_RANGE = 15f;
     const float MAX_FORCE = 10000f;
-    const float MAX_VELOCITY = 30f;
+    const float MAX_VELOCITY = 50f;
     const float MAX_DIZZY_TIME = 1.0f;
     const float DURATION = 0.5f;
 

@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9737a1811b59264591d329bfc335d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isReady: 0
   impactPrefab: {fileID: -4566342241998188949, guid: d950cfc846738f24b802c3064d3f3098,
     type: 3}
   boom: {fileID: 1480600443167915849}
