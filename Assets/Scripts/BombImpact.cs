@@ -5,6 +5,7 @@ public class BombImpact : MonoBehaviour
     const float MAX_RANGE = 15f;
     const float MAX_FORCE = 10000f;
     const float MAX_VELOCITY = 30f;
+    const float MAX_DIZZY_TIME = 1.0f;
     const float DURATION = 0.5f;
 
     private float timer = 0f;
@@ -39,7 +40,7 @@ public class BombImpact : MonoBehaviour
 
         if (other.TryGetComponent(out PlayerLogic playerLogic))
         {
-            playerLogic.SetUnmovable(1f);
+            playerLogic.SetUnmovable(MAX_DIZZY_TIME * impactScaler);
             var distance = other.transform.position - transform.position;
             var direction = distance.normalized;
             playerLogic.velocity = impactScaler * MAX_VELOCITY * direction;
