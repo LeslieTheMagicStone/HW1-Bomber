@@ -31,6 +31,13 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         InputDir = new(horizontalInput, 0, verticalInput);
+
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 playerPos = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 distance = mousePos - playerPos;
+
+        float degree = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, -90 - degree, 0);
     }
 
     private void Move()
