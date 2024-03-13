@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerLogic : MonoBehaviour
 {
     private CharacterController characterController;
 
