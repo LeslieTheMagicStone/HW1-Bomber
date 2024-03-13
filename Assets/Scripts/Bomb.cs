@@ -6,9 +6,13 @@ public class Bomb : MonoBehaviour
     const float SPAWN_ANIM_TIME = 0.5f;
     const float EXPLODE_RADIUS = 4f;
 
+    [SerializeField]
+    private BombImpact impactPrefab;
+    [SerializeField]
+    private ParticleSystem boom;
+
     private IEnumerator Start()
     {
-
         // Spawn anim: grow big.
         float timer = 0;
         Vector3 maxScale = transform.localScale;
@@ -43,15 +47,23 @@ public class Bomb : MonoBehaviour
 
     private void Explode()
     {
-        var colliders = Physics.OverlapSphere(transform.position, EXPLODE_RADIUS);
+        var damageColliders = Physics.OverlapSphere(transform.position, EXPLODE_RADIUS);
 
-        foreach (var collider in colliders)
+        // Handle damage behavior.
+        foreach (var collider in damageColliders)
         {
             if (collider.CompareTag("Voxel"))
             {
-                Destroy(collider.gameObject);
+                //Destroy(collider.gameObject);
             }
         }
+
+        BombImpact impact = Instantiate(impactPrefab, null);
+        impact.transform.position = transform.position;
+
+        // Boom animation.
+        boom.transform.SetParent(null);
+        boom.Play();
 
         Destroy(gameObject);
     }
