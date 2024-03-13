@@ -8,16 +8,16 @@ public class GameManager : MonoBehaviour
     Transform spawnPoint;
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int x = -15; x < 15; x++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int z = -15; z < 15; z++)
             {
-                for (int k = 0; k < 10; k++)
+                for (int y = 0; y < 3; y++)
                 {
                     GameObject cube = Instantiate(voxelPrefab);
                     cube.transform.SetParent(spawnPoint);
-                    cube.transform.localPosition = new(i, k + 1f, j);
-                    cube.name = "Cube(" + i.ToString() + "," + k.ToString() + "," + k.ToString() + ")";
+                    cube.transform.localPosition = new(x, y + 1f, z);
+                    cube.name = "Cube(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
                 }
             }
         }

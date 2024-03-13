@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        characterController.Move(SPEED * Time.deltaTime * InputDir);
+        characterController.SimpleMove(SPEED * InputDir);
     }
 
 }
