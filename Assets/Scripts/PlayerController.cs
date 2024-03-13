@@ -3,12 +3,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController characterController;
-    private float horizontalInput;
-    private float verticalInput;
 
-    private Vector3 InputDir;
+    Vector3 velocity;
 
     const float SPEED = 5.0f;
+    const float GRAVITY = 30.0f;
+    const float JUMP_SPEED = 15.0f;
 
     private void Awake()
     {
@@ -27,10 +27,15 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateInput()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        velocity.x = Input.GetAxis("Horizontal") * SPEED;
+        velocity.z = Input.GetAxis("Vertical") * SPEED;
 
-        InputDir = new(horizontalInput, 0, verticalInput);
+        velocity.y -= GRAVITY * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (characterController.isGrounded)
+                velocity.y = JUMP_SPEED;
+        }
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 playerPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -42,7 +47,8 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        characterController.SimpleMove(SPEED * InputDir);
+        characterController.Move(velocity * Time.deltaTime);
+        velocity = characterController.velocity;
     }
 
 }
