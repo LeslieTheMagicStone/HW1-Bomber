@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
+    public bool isMovable => unmovableTimer <= 0;
+    private float unmovableTimer = 0f;
+
     private CharacterController characterController;
 
-    Vector3 velocity;
+    public Vector3 velocity;
 
     const float SPEED = 5.0f;
     const float GRAVITY = 30.0f;
@@ -18,6 +21,7 @@ public class PlayerLogic : MonoBehaviour
     private void Update()
     {
         UpdateInput();
+        UpdateTimers();
     }
 
     private void FixedUpdate()
@@ -25,17 +29,29 @@ public class PlayerLogic : MonoBehaviour
         Move();
     }
 
+    private void UpdateTimers()
+    {
+        if (unmovableTimer > 0)
+            unmovableTimer -= Time.deltaTime;
+        else
+            unmovableTimer = 0;
+    }
+
     private void UpdateInput()
     {
-        velocity.x = Input.GetAxis("Horizontal") * SPEED;
-        velocity.z = Input.GetAxis("Vertical") * SPEED;
+        if (isMovable)
+        {
+            velocity.x = Input.GetAxis("Horizontal") * SPEED;
+            velocity.z = Input.GetAxis("Vertical") * SPEED;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (characterController.isGrounded)
+                    velocity.y = JUMP_SPEED;
+            }
+        }
 
         velocity.y -= GRAVITY * Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (characterController.isGrounded)
-                velocity.y = JUMP_SPEED;
-        }
 
         Vector3 mousePos = Input.mousePosition;
         Vector3 playerPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -49,6 +65,12 @@ public class PlayerLogic : MonoBehaviour
     {
         characterController.Move(velocity * Time.deltaTime);
         velocity = characterController.velocity;
+    }
+
+
+    public void SetUnmovable(float time)
+    {
+        unmovableTimer = time;
     }
 
 }

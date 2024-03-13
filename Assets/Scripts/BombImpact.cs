@@ -4,18 +4,23 @@ public class BombImpact : MonoBehaviour
 {
     const float MAX_RANGE = 15f;
     const float MAX_FORCE = 10000f;
+    const float MAX_VELOCITY = 30f;
     const float DURATION = 0.5f;
 
     private float timer = 0f;
-    private float force = MAX_FORCE;
+    private float impactScaler => (DURATION - timer) / DURATION;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new(0, 0, 1f, 0.4f);
+        Gizmos.DrawSphere(transform.position, transform.localScale.x);
+    }
 
     private void Update()
     {
         timer += Time.deltaTime;
         float t = timer / DURATION;
         transform.localScale = MAX_RANGE * t * Vector3.one;
-
-        force = (DURATION - timer) / DURATION * MAX_FORCE;
 
         if (timer > DURATION)
         {
@@ -29,7 +34,15 @@ public class BombImpact : MonoBehaviour
         {
             var distance = other.transform.position - transform.position;
             var direction = distance.normalized;
-            rb.AddForce(force * direction);
+            rb.AddForce(MAX_FORCE * impactScaler * direction);
+        }
+
+        if (other.TryGetComponent(out PlayerLogic playerLogic))
+        {
+            playerLogic.SetUnmovable(1f);
+            var distance = other.transform.position - transform.position;
+            var direction = distance.normalized;
+            playerLogic.velocity = impactScaler * MAX_VELOCITY * direction;
         }
     }
 }
