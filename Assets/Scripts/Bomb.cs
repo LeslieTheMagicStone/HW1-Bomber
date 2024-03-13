@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    const float SPAWN_ANIM_TIME = 0.5f;
+    public bool isReady = false;
+
+    const float SPAWN_ANIM_TIME = 0.3f;
     const float EXPLODE_RADIUS = 4f;
 
     [SerializeField]
@@ -19,6 +21,7 @@ public class Bomb : MonoBehaviour
 
         while (timer < SPAWN_ANIM_TIME)
         {
+            print(maxScale);
             timer += Time.deltaTime;
             var t = timer / SPAWN_ANIM_TIME;
             transform.localScale = maxScale * t;
@@ -26,6 +29,7 @@ public class Bomb : MonoBehaviour
         }
 
         transform.localScale = maxScale;
+        isReady = true;
     }
 
     private void OnDrawGizmos()
@@ -36,6 +40,7 @@ public class Bomb : MonoBehaviour
 
     public void Fire()
     {
+        if (!isReady) return;
         StartCoroutine(FireCoroutine());
     }
 

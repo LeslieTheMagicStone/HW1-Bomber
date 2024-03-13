@@ -8,10 +8,10 @@ public class BombShooter : MonoBehaviour
     private Transform spawnPoint;
 
     const float SHOOT_SPEED = 10f;
-    const float MAX_SHOOT_COOLDOWN = 0.5f;
+    const float MAX_SHOOT_COOLDOWN = 0.4f;
     private float shootCooldown = 0f;
 
-    private bool readyToShoot = false;
+    private bool bombInHand = false;
     private Bomb bomb;
     private Rigidbody bombRigidbody;
 
@@ -24,19 +24,20 @@ public class BombShooter : MonoBehaviour
         }
         else
         {
-            if (!readyToShoot)
+            if (!bombInHand)
             {
                 bomb = Instantiate(bombPrefab, spawnPoint.position, spawnPoint.rotation);
                 bombRigidbody = bomb.GetComponent<Rigidbody>();
                 bombRigidbody.isKinematic = true;
                 bomb.transform.SetParent(spawnPoint);
-                readyToShoot = true;
+                bombInHand = true;
             }
 
             if (!Input.GetMouseButtonDown(0)) return;
+            if (!bomb.isReady) return;
 
             shootCooldown = MAX_SHOOT_COOLDOWN;
-            readyToShoot = false;
+            bombInHand = false;
 
             bombRigidbody.isKinematic = false;
             bomb.transform.SetParent(null);
