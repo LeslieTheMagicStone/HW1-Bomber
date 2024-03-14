@@ -11,6 +11,15 @@ public class BombImpact : MonoBehaviour
     private float timer = 0f;
     private float impactScaler => (DURATION - timer) / DURATION;
 
+    private new Renderer renderer;
+    private Material originMaterial;
+
+    private void Start()
+    {
+        renderer = GetComponent<Renderer>();
+        originMaterial = renderer.material;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = new(0, 0, 1f, 0.4f);
@@ -23,10 +32,23 @@ public class BombImpact : MonoBehaviour
         float t = timer / DURATION;
         transform.localScale = MAX_RANGE * t * Vector3.one;
 
+        SetTransparency(originMaterial.color.a * impactScaler);
+
         if (timer > DURATION)
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetTransparency(float a)
+    {
+        Material newMaterial = new Material(originMaterial);
+
+        Color color = newMaterial.color;
+        color.a = a;
+        newMaterial.color = color;
+
+        renderer.material = newMaterial;
     }
 
     private void OnTriggerEnter(Collider other)
