@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BombImpact : MonoBehaviour
 {
-    const float MAX_RANGE = 15f;
+    const float MAX_RADIUS = 15f;
     const float MAX_FORCE = 10000f;
     const float MAX_VELOCITY = 50f;
     const float MAX_DIZZY_TIME = 1.0f;
@@ -23,14 +23,14 @@ public class BombImpact : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = new(0, 0, 1f, 0.4f);
-        Gizmos.DrawSphere(transform.position, transform.localScale.x);
+        Gizmos.DrawSphere(transform.position, transform.localScale.x / 2f);
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
         float t = timer / DURATION;
-        transform.localScale = MAX_RANGE * t * Vector3.one;
+        transform.localScale = MAX_RADIUS * 2 * t * Vector3.one;
 
         SetTransparency(originMaterial.color.a * impactScaler);
 
@@ -42,7 +42,7 @@ public class BombImpact : MonoBehaviour
 
     public void SetTransparency(float a)
     {
-        Material newMaterial = new Material(originMaterial);
+        Material newMaterial = new(originMaterial);
 
         Color color = newMaterial.color;
         color.a = a;
