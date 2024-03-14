@@ -68,6 +68,7 @@ public class Bomb : MonoBehaviour
         // Boom animation.
         boom.transform.SetParent(null);
         boom.Play();
+        Destroy(boom.gameObject, 10f);
 
         Destroy(gameObject);
     }

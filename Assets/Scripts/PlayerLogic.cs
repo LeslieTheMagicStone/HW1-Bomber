@@ -7,6 +7,9 @@ public class PlayerLogic : MonoBehaviour
 
     private CharacterController characterController;
 
+    [SerializeField]
+    private Detector foot;
+
     public Vector3 velocity;
 
     const float SPEED = 5.0f;
@@ -46,7 +49,7 @@ public class PlayerLogic : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (characterController.isGrounded)
+                if (foot.detected)
                     velocity.y = JUMP_SPEED;
             }
         }
