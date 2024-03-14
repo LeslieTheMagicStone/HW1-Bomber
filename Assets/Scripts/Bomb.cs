@@ -21,7 +21,6 @@ public class Bomb : MonoBehaviour
 
         while (timer < SPAWN_ANIM_TIME)
         {
-            print(maxScale);
             timer += Time.deltaTime;
             var t = timer / SPAWN_ANIM_TIME;
             transform.localScale = maxScale * t;

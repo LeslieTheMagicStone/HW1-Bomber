@@ -7,7 +7,7 @@ public class Detector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Voxel"))
+        if (other.CompareTag("Voxel") || other.CompareTag("Ground"))
             detectedCount++;
     }
 
@@ -19,7 +19,7 @@ public class Detector : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Voxel"))
+        if (other.CompareTag("Voxel") || other.CompareTag("Ground"))
             detectedCount--;
     }
 }
