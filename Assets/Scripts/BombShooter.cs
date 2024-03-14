@@ -1,3 +1,5 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BombShooter : MonoBehaviour
@@ -39,9 +41,24 @@ public class BombShooter : MonoBehaviour
             shootCooldown = MAX_SHOOT_COOLDOWN;
             bombInHand = false;
 
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+
             bombRigidbody.isKinematic = false;
             bomb.transform.SetParent(null);
-            bombRigidbody.velocity = bomb.transform.up * SHOOT_SPEED;
+
+            // t = 2 * v0 * sin(theta) / g
+            // d = v0 * cos(theta) * t
+            // v^2 * 2sin(theta)cos(theta) / g = d
+            // v = sqrt(d * g / 2sin(theta)cos(theta))
+            var s = hit.transform.position - transform.position;
+            s.y = 0;
+            float distance = s.magnitude;
+            float theta = (90f - Vector3.Angle(bomb.transform.up, Vector3.up)) * Mathf.Deg2Rad;
+            float g = math.abs(Physics.gravity.y);
+            float speed = math.sqrt(distance * g / (2 * math.sin(theta) * math.cos(theta)));
+
+            bombRigidbody.velocity = speed * bomb.transform.up;
             bomb.Fire();
         }
 
