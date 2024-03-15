@@ -5,12 +5,12 @@ public class MonsterLogic : MonoBehaviour
 {
     private enum MonsterState
     {
-        IDLE,
         CHASE,
         ELEVATE
     }
+    private MonsterState monsterState = MonsterState.CHASE;
 
-    private MonsterState monsterState = MonsterState.IDLE;
+    private bool isElevating = false;
 
     [SerializeField]
     private Detector detector, buffer;
@@ -34,17 +34,16 @@ public class MonsterLogic : MonoBehaviour
 
     private void Update()
     {
-        switch (monsterState)
+        if (isElevating)
         {
-            case MonsterState.IDLE:
-                if (!buffer.detected) velocity.y = -FALL_SPEED;
-                else velocity.y = 0;
-                if (detector.detected) monsterState = MonsterState.ELEVATE;
-                break;
-            case MonsterState.ELEVATE:
-                velocity.y = ELEVATE_SPEED;
-                if (!detector.detected) monsterState = MonsterState.IDLE;
-                break;
+            velocity.y = ELEVATE_SPEED;
+            if (!detector.detected) isElevating = false;
+        }
+        else
+        {
+            if (!buffer.detected) velocity.y = -FALL_SPEED;
+            else velocity.y = 0;
+            if (detector.detected) isElevating = true;
         }
 
         var pos = player.transform.position;

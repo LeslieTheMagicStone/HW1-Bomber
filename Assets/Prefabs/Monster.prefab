@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  showTextFrequency: 1
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
 --- !u!1001 &4629298481846365939
@@ -328,7 +329,7 @@ PrefabInstance:
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5373
+      value: 4.085307
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
@@ -343,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.1287
+      value: 1.3547
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
@@ -424,7 +425,7 @@ PrefabInstance:
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5373
+      value: 4.085307
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
@@ -439,7 +440,7 @@ PrefabInstance:
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.1287
+      value: 1.3547
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
