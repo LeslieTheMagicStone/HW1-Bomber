@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour
 
     const float SPAWN_ANIM_TIME = 0.3f;
     const float EXPLODE_RADIUS = 4f;
+    const int DAMAGE = 50;
 
     [SerializeField]
     private BombImpact impactPrefab;
@@ -59,6 +60,16 @@ public class Bomb : MonoBehaviour
             if (collider.CompareTag("Voxel"))
             {
                 //Destroy(collider.gameObject);
+            }
+
+            if (collider.TryGetComponent(out Damageable damageable))
+            {
+                damageable.TakeDamage(DAMAGE);
+            }
+            else if (collider.GetComponentInParent<Damageable>() != null)
+            {
+                var parentDamageable = collider.GetComponentInParent<Damageable>();
+                parentDamageable.TakeDamage(DAMAGE);
             }
         }
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6176264821962657032}
   - component: {fileID: 3957831754183774251}
   - component: {fileID: 1715692073455581768}
+  - component: {fileID: 3236921061975670264}
   m_Layer: 0
   m_Name: Voxel
   m_TagString: Voxel
@@ -133,3 +134,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3236921061975670264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767758095593171909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c241332f3a34b4fb097175a6b6718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
+  showTextFrequency: 0.15
+  damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
+    type: 3}
