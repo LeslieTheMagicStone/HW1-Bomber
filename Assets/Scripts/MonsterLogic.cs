@@ -26,7 +26,7 @@ public class MonsterLogic : MonoBehaviour
     const float FLOAT_AMPLITUDE = 0.6f;
     const float FALL_SPEED = 2f;
     const float ATTACK_RADIUS = 2f;
-    const float ATTACK_DURATION = 0.5f;
+    const float ATTACK_DURATION = 1.0f;
 
     private float behaviorTimer = 0f;
 
@@ -76,29 +76,34 @@ public class MonsterLogic : MonoBehaviour
 
                 break;
             case MonsterState.ATTACK:
-                if (behaviorTimer < ATTACK_DURATION * 0.3f)
+                rigidbody.isKinematic = true;
+                if (behaviorTimer < ATTACK_DURATION * 0.2f)
                 {
                     // Go back a bit.
-                    print("back");
-
+                    velocity = -transform.forward * 1f;
                     behaviorTimer += Time.deltaTime;
                 }
-                else if (behaviorTimer < ATTACK_DURATION * 0.5f)
+                else if (behaviorTimer < ATTACK_DURATION * 0.4f)
                 {
                     // Dash forward.
-                    print("dash");
-
+                    velocity = transform.forward * 5f;
+                    behaviorTimer += Time.deltaTime;
+                }
+                else if (behaviorTimer < ATTACK_DURATION * 0.8f)
+                {
+                    // Go back.
+                    velocity = -transform.forward * 1f;
                     behaviorTimer += Time.deltaTime;
                 }
                 else if (behaviorTimer < ATTACK_DURATION * 1.0f)
                 {
-                    // Go back.
-                    print("back");
-
+                    // Take a rest.
+                    velocity = Vector3.zero;
                     behaviorTimer += Time.deltaTime;
                 }
                 else
                 {
+                    rigidbody.isKinematic = false;
                     monsterState = MonsterState.CHASE;
                     behaviorTimer = 0f;
                 }
@@ -108,7 +113,10 @@ public class MonsterLogic : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody.velocity = velocity;
+        if (!rigidbody.isKinematic)
+            rigidbody.velocity = velocity;
+        else
+            transform.Translate(velocity*Time.deltaTime);
 
         var bodyVelocity = Vector3.zero;
         bodyVelocity.y = math.sin(Time.time) * FLOAT_AMPLITUDE;
