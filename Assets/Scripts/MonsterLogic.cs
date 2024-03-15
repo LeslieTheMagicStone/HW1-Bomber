@@ -6,7 +6,7 @@ public class MonsterLogic : MonoBehaviour
     private enum MonsterState
     {
         CHASE,
-        ELEVATE
+        ATTACK
     }
     private MonsterState monsterState = MonsterState.CHASE;
 
@@ -25,6 +25,16 @@ public class MonsterLogic : MonoBehaviour
     const float ELEVATE_SPEED = 1.0f;
     const float FLOAT_AMPLITUDE = 0.6f;
     const float FALL_SPEED = 2f;
+    const float ATTACK_RADIUS = 2f;
+    const float ATTACK_DURATION = 0.5f;
+
+    private float behaviorTimer = 0f;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new(1.0f, 0, 0, 0.5f);
+        Gizmos.DrawSphere(transform.position, ATTACK_RADIUS);
+    }
 
     private void Start()
     {
@@ -50,10 +60,50 @@ public class MonsterLogic : MonoBehaviour
         pos.y = transform.position.y;
         transform.LookAt(pos);
 
-        var distance = player.transform.position - transform.position;
-        var direction = distance.normalized;
-        velocity.x = direction.x * SPEED;
-        velocity.z = direction.z * SPEED;
+        switch (monsterState)
+        {
+            case MonsterState.CHASE:
+                var distance = player.transform.position - transform.position;
+                var direction = distance.normalized;
+                velocity.x = direction.x * SPEED;
+                velocity.z = direction.z * SPEED;
+
+                if (distance.magnitude < ATTACK_RADIUS)
+                {
+                    monsterState = MonsterState.ATTACK;
+                    behaviorTimer = 0f;
+                }
+
+                break;
+            case MonsterState.ATTACK:
+                if (behaviorTimer < ATTACK_DURATION * 0.3f)
+                {
+                    // Go back a bit.
+                    print("back");
+
+                    behaviorTimer += Time.deltaTime;
+                }
+                else if (behaviorTimer < ATTACK_DURATION * 0.5f)
+                {
+                    // Dash forward.
+                    print("dash");
+
+                    behaviorTimer += Time.deltaTime;
+                }
+                else if (behaviorTimer < ATTACK_DURATION * 1.0f)
+                {
+                    // Go back.
+                    print("back");
+
+                    behaviorTimer += Time.deltaTime;
+                }
+                else
+                {
+                    monsterState = MonsterState.CHASE;
+                    behaviorTimer = 0f;
+                }
+                break;
+        }
     }
 
     private void FixedUpdate()
