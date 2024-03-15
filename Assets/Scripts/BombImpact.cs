@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BombImpact : MonoBehaviour
 {
-    const float MAX_RADIUS = 15f;
+    const float MAX_RADIUS = 8f;
     const float MAX_FORCE = 10000f;
     const float MAX_VELOCITY = 50f;
     const float MAX_DIZZY_TIME = 1.0f;
