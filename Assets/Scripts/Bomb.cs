@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour
 
     const float SPAWN_ANIM_TIME = 0.3f;
     const float EXPLODE_RADIUS = 4f;
+    const float EXPLODE_TIME = 2f;
     const int DAMAGE = 50;
 
     [SerializeField]
@@ -46,7 +47,7 @@ public class Bomb : MonoBehaviour
 
     private IEnumerator FireCoroutine()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(EXPLODE_TIME);
         Explode();
     }
 
