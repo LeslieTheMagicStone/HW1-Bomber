@@ -16,6 +16,8 @@ public class MonsterLogic : MonoBehaviour
     private Detector detector, buffer;
     [SerializeField]
     private Transform body;
+    [SerializeField]
+    private DamageField attackField;
     private PlayerLogic player;
 
     private Vector3 velocity;
@@ -27,6 +29,7 @@ public class MonsterLogic : MonoBehaviour
     const float FALL_SPEED = 2f;
     const float ATTACK_RADIUS = 2f;
     const float ATTACK_DURATION = 1.0f;
+    const float ATTACK_DAMAGE = 20f;
 
     private float behaviorTimer = 0f;
 
@@ -55,6 +58,8 @@ public class MonsterLogic : MonoBehaviour
             else velocity.y = 0;
             if (detector.detected) isElevating = true;
         }
+
+        if (player == null) return;
 
         var pos = player.transform.position;
         pos.y = transform.position.y;
@@ -86,12 +91,14 @@ public class MonsterLogic : MonoBehaviour
                 else if (behaviorTimer < ATTACK_DURATION * 0.4f)
                 {
                     // Dash forward.
+                    attackField.gameObject.SetActive(true);
                     velocity = transform.forward * 5f;
                     behaviorTimer += Time.deltaTime;
                 }
                 else if (behaviorTimer < ATTACK_DURATION * 0.8f)
                 {
                     // Go back.
+                    attackField.gameObject.SetActive(false);
                     velocity = -transform.forward * 1f;
                     behaviorTimer += Time.deltaTime;
                 }
@@ -116,7 +123,7 @@ public class MonsterLogic : MonoBehaviour
         if (!rigidbody.isKinematic)
             rigidbody.velocity = velocity;
         else
-            transform.Translate(velocity*Time.deltaTime);
+            transform.Translate(velocity * Time.deltaTime);
 
         var bodyVelocity = Vector3.zero;
         bodyVelocity.y = math.sin(Time.time) * FLOAT_AMPLITUDE;

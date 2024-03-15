@@ -73,7 +73,7 @@ public class PlayerLogic : MonoBehaviour
 
     public void SetUnmovable(float time)
     {
-        unmovableTimer = time;
+        if (time > unmovableTimer)
+            unmovableTimer = time;
     }
-
 }
