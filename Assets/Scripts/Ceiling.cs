@@ -6,7 +6,8 @@ public class Ceiling : MonoBehaviour
     private new Renderer renderer;
     private GameObject player;
 
-    const float WARNING_RANGE = 3f;
+    public float warningRange;
+    public float highestWarningDistance;
 
     private void Start()
     {
@@ -18,12 +19,16 @@ public class Ceiling : MonoBehaviour
     private void Update()
     {
         if (player == null)
+            return;
+
+        float distanceY = Mathf.Abs(transform.position.y - player.transform.position.y);
+        if (distanceY <= highestWarningDistance)
         {
             SetTransparency(originMaterial.color.a);
             return;
         }
 
-        float scaler = 1 - Mathf.Abs(transform.position.y - player.transform.position.y) / WARNING_RANGE;
+        float scaler = 1 - Mathf.Abs(distanceY - highestWarningDistance) / (warningRange - highestWarningDistance);
         if (scaler > 0)
         {
             SetTransparency(scaler * originMaterial.color.a);

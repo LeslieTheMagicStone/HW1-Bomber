@@ -1297,7 +1297,8 @@ MonoBehaviour:
   showTextFrequency: 1
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
-  deathEffectPrefab: {fileID: 0}
+  deathEffectPrefab: {fileID: 1888440889154658094, guid: 7fc7835e15c697441929b840f0827b0f,
+    type: 3}
 --- !u!1 &957391470
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,6 +1941,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a914dc737ec7d548b82aee0c4c0c978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warningRange: 10
+  highestWarningDistance: 10
 --- !u!65 &1525253103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2308,6 +2311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a914dc737ec7d548b82aee0c4c0c978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warningRange: 3
+  highestWarningDistance: 1
 --- !u!114 &1955667430
 MonoBehaviour:
   m_ObjectHideFlags: 0
