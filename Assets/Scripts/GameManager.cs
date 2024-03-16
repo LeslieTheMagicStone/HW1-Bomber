@@ -6,6 +6,14 @@ public class GameManager : MonoBehaviour
     GameObject voxelPrefab;
     [SerializeField]
     Transform spawnPoint;
+    [SerializeField]
+    MonsterLogic monsterPrefab;
+
+    const float SPAWN_INVERVAL_CONVERGENCE_RATE = 0.005f;
+    const float MAX_SPAWN_MONSTER_INTERVAL = 3f;
+    private float spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL;
+    private float spawnMonsterTimer = MAX_SPAWN_MONSTER_INTERVAL;
+
     private void Start()
     {
         for (int x = -15; x < 15; x++)
@@ -21,5 +29,19 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void Update()
+    {
+        spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_INVERVAL_CONVERGENCE_RATE * Time.time);
+
+        if (spawnMonsterTimer <= 0f)
+        {
+            var monster = Instantiate(monsterPrefab);
+            Vector3 randomPos = new(Random.Range(-15f, 15f), 10f, Random.Range(-15f, 15f));
+            monster.transform.position = randomPos;
+            spawnMonsterTimer = spawnMonsterInterval;
+        }
+        spawnMonsterTimer -= Time.deltaTime;
     }
 }

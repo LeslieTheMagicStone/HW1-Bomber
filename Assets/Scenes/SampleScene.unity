@@ -202,6 +202,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 112955772}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &137046569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4249087769912492182, guid: 2b46a3260ba76f444832a60ef0c8846a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1885114622}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add204136dc296c4983f06851c49e36f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &142782485
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +384,7 @@ MonoBehaviour:
   voxelPrefab: {fileID: 4767758095593171909, guid: 0f0c2f90df371c34d847616eee01c0ac,
     type: 3}
   spawnPoint: {fileID: 1963865118}
+  monsterPrefab: {fileID: 137046569}
 --- !u!4 &247316965
 Transform:
   m_ObjectHideFlags: 0
