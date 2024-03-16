@@ -16,6 +16,8 @@ public class PlayerLogic : MonoBehaviour
     const float GRAVITY = 30.0f;
     const float JUMP_SPEED = 15.0f;
 
+    const float INPUT_ROTATION_DEGREE = 45f;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -46,6 +48,7 @@ public class PlayerLogic : MonoBehaviour
         {
             velocity.x = Input.GetAxis("Horizontal") * SPEED;
             velocity.z = Input.GetAxis("Vertical") * SPEED;
+            velocity = Quaternion.Euler(0f, INPUT_ROTATION_DEGREE, 0f) * velocity;
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -61,7 +64,7 @@ public class PlayerLogic : MonoBehaviour
         Vector3 distance = mousePos - playerPos;
 
         float degree = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, -90 - degree, 0);
+        transform.rotation = Quaternion.Euler(0, INPUT_ROTATION_DEGREE - 90 - degree, 0);
     }
 
     private void Move()

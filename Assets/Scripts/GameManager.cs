@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         if (spawnMonsterTimer <= 0f)
         {
             var monster = Instantiate(monsterPrefab);
-            Vector3 randomPos = new(Random.Range(-15f, 15f), 10f, Random.Range(-15f, 15f));
+            Vector3 randomPos = new(Random.Range(-xSize + 1f, xSize - 1f), 10f, Random.Range(-zSize + 1f, zSize - 1f));
             monster.transform.position = randomPos;
             spawnMonsterTimer = spawnMonsterInterval;
         }
