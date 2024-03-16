@@ -2,6 +2,11 @@ using UnityEngine;
 
 class SafeBomb : Bomb
 {
+    protected override void OnCollisionEnter(Collision other)
+    {
+        
+    }
+
     protected override void Explode()
     {
         BombImpact impact = Instantiate(impactPrefab, null);

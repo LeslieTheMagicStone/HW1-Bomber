@@ -53,7 +53,7 @@ public class Bomb : MonoBehaviour
         Gizmos.DrawSphere(transform.position, EXPLODE_RADIUS);
     }
 
-    private void OnCollisionEnter(Collision other)
+    protected virtual void OnCollisionEnter(Collision other)
     {
         if (isFired && explodeTimer / EXPLODE_TIME <= 0.9f)
         {
