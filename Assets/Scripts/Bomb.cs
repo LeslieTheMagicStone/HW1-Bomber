@@ -55,7 +55,7 @@ public class Bomb : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (isFired)
+        if (isFired && explodeTimer / EXPLODE_TIME <= 0.9f)
         {
             explodeTimer = 0.1f;
         }
