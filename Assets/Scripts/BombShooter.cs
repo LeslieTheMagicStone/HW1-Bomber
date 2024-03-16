@@ -9,6 +9,8 @@ public class BombShooter : MonoBehaviour
     private Bomb selectedBombPrefab;
     [SerializeField]
     private Transform spawnPoint;
+    [SerializeField]
+    private DisplayBase displayBase;
 
     const float MAX_SHOOT_COOLDOWN = 0.4f;
     private float shootCooldown = 0f;
@@ -23,11 +25,18 @@ public class BombShooter : MonoBehaviour
     {
         parent = GetComponentInParent<CharacterController>();
 
-        selectedBombPrefab = safeBombPrefab;
+        selectedBombPrefab = bombPrefab;
     }
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (selectedBombPrefab == bombPrefab) selectedBombPrefab = safeBombPrefab;
+            else selectedBombPrefab = bombPrefab;
+            displayBase.Display(selectedBombPrefab);
+        }
+
         if (shootCooldown > 0)
         {
             shootCooldown -= Time.deltaTime;
