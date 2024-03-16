@@ -26,6 +26,7 @@ public class BombShooter : MonoBehaviour
         parent = GetComponentInParent<CharacterController>();
 
         selectedBombPrefab = bombPrefab;
+        displayBase.Display(selectedBombPrefab);
     }
 
     private void Update()
@@ -52,7 +53,7 @@ public class BombShooter : MonoBehaviour
                 bombInHand = true;
             }
 
-            if (!Input.GetMouseButtonDown(0)) return;
+            if (!(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))) return;
             if (!bomb.isReady) return;
 
             shootCooldown = MAX_SHOOT_COOLDOWN;

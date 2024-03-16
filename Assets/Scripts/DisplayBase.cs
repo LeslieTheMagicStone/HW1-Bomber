@@ -6,7 +6,7 @@ public class DisplayBase : MonoBehaviour
     [SerializeField]
     Transform spawnPoint;
     Bomb displayingBomb;
-    public float rotateSpeed = 5f;
+    public float rotateSpeed = 25f;
 
     public void Display(Bomb bombPrefab)
     {

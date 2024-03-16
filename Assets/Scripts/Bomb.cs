@@ -57,7 +57,7 @@ public class Bomb : MonoBehaviour
     {
         if (isFired && explodeTimer / EXPLODE_TIME <= 0.9f)
         {
-            explodeTimer = 0.1f;
+            explodeTimer = 0.01f;
         }
     }
 
