@@ -4,8 +4,8 @@ public class BombImpact : MonoBehaviour
 {
     const float MAX_RADIUS = 8f;
     const float MAX_FORCE = 10000f;
-    const float MAX_VELOCITY = 50f;
-    const float MAX_DIZZY_TIME = 1.0f;
+    const float MAX_VELOCITY = 30f;
+    const float MAX_DIZZY_TIME = 1.5f;
     const float DURATION = 0.5f;
 
     private float timer = 0f;
@@ -66,6 +66,14 @@ public class BombImpact : MonoBehaviour
             var distance = other.transform.position - transform.position;
             var direction = distance.normalized;
             playerLogic.velocity = impactScaler * MAX_VELOCITY * direction;
+        }
+
+        if (other.TryGetComponent(out MonsterLogic monsterLogic))
+        {
+            monsterLogic.SetUnmovable(MAX_DIZZY_TIME * impactScaler);
+            var distance = other.transform.position - transform.position;
+            var direction = distance.normalized;
+            monsterLogic.velocity = impactScaler * MAX_VELOCITY * direction;
         }
     }
 }

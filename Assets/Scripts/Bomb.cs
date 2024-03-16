@@ -51,26 +51,16 @@ public class Bomb : MonoBehaviour
         Explode();
     }
 
-    private void Explode()
+    protected virtual void Explode()
     {
         var damageColliders = Physics.OverlapSphere(transform.position, EXPLODE_RADIUS);
 
         // Handle damage behavior.
         foreach (var collider in damageColliders)
         {
-            if (collider.CompareTag("Voxel"))
-            {
-                //Destroy(collider.gameObject);
-            }
-
             if (collider.TryGetComponent(out Damageable damageable))
             {
                 damageable.TakeDamage(DAMAGE);
-            }
-            else if (collider.GetComponentInParent<Damageable>() != null)
-            {
-                var parentDamageable = collider.GetComponentInParent<Damageable>();
-                parentDamageable.TakeDamage(DAMAGE);
             }
         }
 

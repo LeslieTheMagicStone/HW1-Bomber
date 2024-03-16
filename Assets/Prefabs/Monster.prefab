@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3702128697132510800}
   - component: {fileID: 3689154227585548791}
   - component: {fileID: 8059854957339346596}
-  - component: {fileID: 6838259717351871337}
   m_Layer: 0
   m_Name: Eye
   m_TagString: Untagged
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6838259717351871337
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2547962122438070954}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3981234318294613514
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +94,6 @@ GameObject:
   - component: {fileID: 5841696236428481934}
   - component: {fileID: 8359945640758293984}
   - component: {fileID: 3263204923077802388}
-  - component: {fileID: 5366604267955644607}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -190,29 +167,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5366604267955644607
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3981234318294613514}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7051482510817988414
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,6 +179,7 @@ GameObject:
   - component: {fileID: 8936820907127473161}
   - component: {fileID: 4249087769912492182}
   - component: {fileID: 6571553872112180761}
+  - component: {fileID: 8832606903238779712}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -310,7 +265,31 @@ MonoBehaviour:
   showTextFrequency: 1
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
-  deathEffectPrefab: {fileID: 0}
+  deathEffectPrefab: {fileID: 1888440889154658094, guid: 35ff8f8b757db4e41ae3992a82e21156,
+    type: 3}
+--- !u!136 &8832606903238779712
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7051482510817988414}
+  m_Material: {fileID: 13400000, guid: b038287b64147e1458bbc86ff2953e20, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2231284452308278143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -448,7 +427,7 @@ PrefabInstance:
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.0260446
+      value: 2.4079542
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
@@ -463,7 +442,7 @@ PrefabInstance:
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.113
+      value: -0.304
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
@@ -559,7 +538,7 @@ PrefabInstance:
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.268
+      value: -1.66
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}

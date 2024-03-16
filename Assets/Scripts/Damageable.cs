@@ -21,7 +21,7 @@ public class Damageable : MonoBehaviour
     {
         if (Random.Range(0, 1f) <= showTextFrequency)
         {
-            var canvas = Instantiate(damageTextPrefab, transform.position, Quaternion.identity);
+            var canvas = Instantiate(damageTextPrefab, transform.position, damageTextPrefab.transform.rotation);
             var tmpro = canvas.GetComponentInChildren<TMP_Text>();
             tmpro.text = damage.ToString();
         }

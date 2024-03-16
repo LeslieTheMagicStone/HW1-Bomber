@@ -20,18 +20,21 @@ public class MonsterLogic : MonoBehaviour
     private DamageField attackField;
     private PlayerLogic player;
 
-    private Vector3 velocity;
+    public Vector3 velocity;
     private new Rigidbody rigidbody;
 
     const float SPEED = 3.0f;
-    const float ELEVATE_SPEED = 1.0f;
+    const float ELEVATE_SPEED = 2.0f;
     const float FLOAT_AMPLITUDE = 0.6f;
-    const float FALL_SPEED = 2f;
+    const float FALL_SPEED = 3.0f;
     const float ATTACK_RADIUS = 2f;
     const float ATTACK_DURATION = 1.0f;
     const float ATTACK_DAMAGE = 20f;
 
     private float behaviorTimer = 0f;
+
+    private float unmovableTimer = 0f;
+    private bool isUnmovable => unmovableTimer > 0;
 
     private void OnDrawGizmos()
     {
@@ -50,6 +53,12 @@ public class MonsterLogic : MonoBehaviour
 
     private void Update()
     {
+        if (isUnmovable)
+        {
+            unmovableTimer -= Time.deltaTime;
+            return;
+        }
+
         if (isElevating)
         {
             velocity.y = ELEVATE_SPEED;
@@ -123,13 +132,28 @@ public class MonsterLogic : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isUnmovable)
+        {
+            velocity -= 1.2f * Time.fixedDeltaTime * velocity / unmovableTimer;
+        }
+
         if (!rigidbody.isKinematic)
+        {
             rigidbody.velocity = velocity;
+            velocity = rigidbody.velocity;
+        }
         else
-            transform.Translate(velocity * Time.deltaTime);
+            transform.Translate(velocity * Time.fixedDeltaTime);
 
         var bodyVelocity = Vector3.zero;
         bodyVelocity.y = math.sin(Time.time) * FLOAT_AMPLITUDE;
-        body.Translate(bodyVelocity * Time.deltaTime);
+        body.Translate(bodyVelocity * Time.fixedDeltaTime);
+    }
+
+    public void SetUnmovable(float time)
+    {
+        rigidbody.isKinematic = false;
+        if (time > unmovableTimer)
+            unmovableTimer = time;
     }
 }
