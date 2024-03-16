@@ -249,6 +249,7 @@ MonoBehaviour:
   buffer: {fileID: 5823969383783915502}
   body: {fileID: 5841696236428481934}
   attackField: {fileID: 502223804428956533}
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &6571553872112180761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,11 +262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c241332f3a34b4fb097175a6b6718b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   showTextFrequency: 1
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
-  deathEffectPrefab: {fileID: 1888440889154658094, guid: 35ff8f8b757db4e41ae3992a82e21156,
+  deathEffectPrefab: {fileID: 1888440889154658094, guid: 7fc7835e15c697441929b840f0827b0f,
     type: 3}
 --- !u!136 &8832606903238779712
 CapsuleCollider:
