@@ -38,13 +38,13 @@ public class GameManager : MonoBehaviour
         }
 
         var leftWall = Instantiate(wallPrefab, new Vector3(-xSize - 2.5f, 0, 0), Quaternion.identity);
-        leftWall.transform.localScale = new(4f, 5 * ySize, 3 * zSize);
+        leftWall.transform.localScale = new(4f, 100f, 3 * zSize);
         var rightWall = Instantiate(wallPrefab, new Vector3(xSize + 2.5f, 0, 0), Quaternion.identity);
-        rightWall.transform.localScale = new(4f, 5 * ySize, 3 * zSize);
+        rightWall.transform.localScale = new(4f, 100f, 3 * zSize);
         var forwardWall = Instantiate(wallPrefab, new Vector3(0, 0, -zSize - 2.5f), Quaternion.identity);
-        forwardWall.transform.localScale = new(3 * xSize, 5 * ySize, 4f);
+        forwardWall.transform.localScale = new(3 * xSize, 100f, 4f);
         var backWall = Instantiate(wallPrefab, new Vector3(0, 0, zSize + 2.5f), Quaternion.identity);
-        backWall.transform.localScale = new(3 * xSize, 5 * ySize, 4f);
+        backWall.transform.localScale = new(3 * xSize, 100f, 4f);
     }
 
     private void Update()

@@ -369,8 +369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760076edc0f924d4580dee86a51f95c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSize: 5
-  zSize: 5
+  xSize: 15
+  zSize: 15
   ySize: 3
   voxelPrefab: {fileID: 4767758095593171909, guid: 0f0c2f90df371c34d847616eee01c0ac,
     type: 3}
