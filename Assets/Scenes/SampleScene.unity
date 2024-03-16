@@ -369,7 +369,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760076edc0f924d4580dee86a51f95c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xSize: 15
+  zSize: 15
+  ySize: 3
   voxelPrefab: {fileID: 4767758095593171909, guid: 0f0c2f90df371c34d847616eee01c0ac,
+    type: 3}
+  wallPrefab: {fileID: 2124741290068442146, guid: da8fa91fabc99ac419162db2a5744f5a,
     type: 3}
   spawnPoint: {fileID: 1963865118}
   monsterPrefab: {fileID: 4249087769912492182, guid: 2b46a3260ba76f444832a60ef0c8846a,

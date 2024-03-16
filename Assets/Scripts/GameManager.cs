@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public int xSize, zSize, ySize;
     [SerializeField]
-    GameObject voxelPrefab;
+    GameObject voxelPrefab, wallPrefab;
     [SerializeField]
     Transform spawnPoint;
     [SerializeField]
@@ -16,11 +17,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        for (int x = -15; x < 15; x++)
+        for (int x = -xSize; x <= xSize; x++)
         {
-            for (int z = -15; z < 15; z++)
+            for (int z = -zSize; z <= zSize; z++)
             {
-                for (int y = 0; y < 3; y++)
+                for (int y = 0; y < ySize; y++)
                 {
                     GameObject cube = Instantiate(voxelPrefab);
                     cube.transform.SetParent(spawnPoint);
@@ -29,6 +30,15 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        var leftWall = Instantiate(wallPrefab, new Vector3(-xSize - 2.5f, 0, 0), Quaternion.identity);
+        leftWall.transform.localScale = new(4f, 5 * ySize, 3 * zSize);
+        var rightWall = Instantiate(wallPrefab, new Vector3(xSize + 2.5f, 0, 0), Quaternion.identity);
+        rightWall.transform.localScale = new(4f, 5 * ySize, 3 * zSize);
+        var forwardWall = Instantiate(wallPrefab, new Vector3(0, 0, -zSize - 2.5f), Quaternion.identity);
+        forwardWall.transform.localScale = new(3 * xSize, 5 * ySize, 4f);
+        var backWall = Instantiate(wallPrefab, new Vector3(0, 0, zSize + 2.5f), Quaternion.identity);
+        backWall.transform.localScale = new(3 * xSize, 5 * ySize, 4f);
     }
 
     private void Update()
