@@ -41,7 +41,10 @@ public class MonsterLogic : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerLogic>();
+        if (GameObject.FindWithTag("Player") != null)
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerLogic>();
+        else
+            Destroy(gameObject);
         rigidbody = GetComponent<Rigidbody>();
     }
 
