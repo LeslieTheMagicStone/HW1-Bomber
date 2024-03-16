@@ -369,8 +369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760076edc0f924d4580dee86a51f95c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSize: 15
-  zSize: 15
+  xSize: 5
+  zSize: 5
   ySize: 3
   voxelPrefab: {fileID: 4767758095593171909, guid: 0f0c2f90df371c34d847616eee01c0ac,
     type: 3}
@@ -1059,7 +1059,7 @@ Transform:
   m_GameObject: {fileID: 935840174}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.83, z: 7.9}
+  m_LocalPosition: {x: 0, y: 6.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

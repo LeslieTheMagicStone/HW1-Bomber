@@ -10,10 +10,16 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     MonsterLogic monsterPrefab;
 
-    const float SPAWN_INVERVAL_CONVERGENCE_RATE = 0.005f;
+    const float SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE = 0.005f;
     const float MAX_SPAWN_MONSTER_INTERVAL = 3f;
     private float spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL;
     private float spawnMonsterTimer = MAX_SPAWN_MONSTER_INTERVAL;
+
+
+    const float SPAWN_VOXEL_INTERVAL_CONVERGENCE_RATE = 0.005f;
+    const float MAX_SPAWN_VOXEL_INTERVAL = 5f;
+    private float spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL;
+    private float spawnVoxelTimer = MAX_SPAWN_VOXEL_INTERVAL;
 
     private void Start()
     {
@@ -43,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_INVERVAL_CONVERGENCE_RATE * Time.time);
+        spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE * Time.time);
 
         if (spawnMonsterTimer <= 0f)
         {
@@ -53,5 +59,26 @@ public class GameManager : MonoBehaviour
             spawnMonsterTimer = spawnMonsterInterval;
         }
         spawnMonsterTimer -= Time.deltaTime;
+
+        spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL * Mathf.Exp(-SPAWN_VOXEL_INTERVAL_CONVERGENCE_RATE * Time.time);
+
+        if (spawnVoxelTimer <= 0f)
+        {
+            for (int x = -xSize; x <= xSize; x++)
+            {
+                for (int z = -zSize; z <= zSize; z++)
+                {
+                    for (int y = 0; y < 1; y++)
+                    {
+                        GameObject cube = Instantiate(voxelPrefab);
+                        cube.transform.SetParent(spawnPoint);
+                        cube.transform.localPosition = new(x, y + 1f, z);
+                        cube.name = "Cube(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+                    }
+                }
+            }
+            spawnVoxelTimer = spawnVoxelInterval;
+        }
+        spawnVoxelTimer -= Time.deltaTime;
     }
 }
