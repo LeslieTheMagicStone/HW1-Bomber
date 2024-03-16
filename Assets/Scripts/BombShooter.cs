@@ -23,7 +23,7 @@ public class BombShooter : MonoBehaviour
     {
         parent = GetComponentInParent<CharacterController>();
 
-        selectedBombPrefab = bombPrefab;
+        selectedBombPrefab = safeBombPrefab;
     }
 
     private void Update()
