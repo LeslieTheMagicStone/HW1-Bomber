@@ -9,14 +9,19 @@ public class BombShooter : MonoBehaviour
     [SerializeField]
     private Transform spawnPoint;
 
-    const float SHOOT_SPEED = 10f;
     const float MAX_SHOOT_COOLDOWN = 0.4f;
     private float shootCooldown = 0f;
 
     private bool bombInHand = false;
     private Bomb bomb;
     private Rigidbody bombRigidbody;
+    // Used to get the base velocity of the bomb.
+    private CharacterController parent;
 
+    private void Start()
+    {
+        parent = GetComponentInParent<CharacterController>();
+    }
 
     private void Update()
     {
@@ -58,7 +63,7 @@ public class BombShooter : MonoBehaviour
             float g = math.abs(Physics.gravity.y);
             float speed = math.sqrt(distance * g / (2 * math.sin(theta) * math.cos(theta)));
 
-            bombRigidbody.velocity = speed * bomb.transform.up;
+            bombRigidbody.velocity = speed * bomb.transform.up - parent.velocity;
             bomb.Fire();
         }
 
