@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
                         {
                             GameObject cube = Instantiate(voxelPrefab);
                             cube.transform.SetParent(spawnPoint);
-                            cube.transform.localPosition = new(x, y + 1f, z);
+                            cube.transform.localPosition = new(x, y, z);
                             cube.name = "Cube(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
                         }
                     }
