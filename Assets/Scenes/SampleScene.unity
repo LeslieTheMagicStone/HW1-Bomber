@@ -1226,6 +1226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: -105682084696346130, guid: 6bdf07b5419d00d4db288e480276ecc0,
     type: 3}
+  safeBombPrefab: {fileID: 7156315891151270694, guid: 1542a2693d8666c40902a038f54afc91,
+    type: 3}
   spawnPoint: {fileID: 173823094}
 --- !u!1 &1395097936
 GameObject:

@@ -5,7 +5,8 @@ using UnityEngine;
 public class BombShooter : MonoBehaviour
 {
     [SerializeField]
-    private Bomb bombPrefab;
+    private Bomb bombPrefab, safeBombPrefab;
+    private Bomb selectedBombPrefab;
     [SerializeField]
     private Transform spawnPoint;
 
@@ -21,6 +22,8 @@ public class BombShooter : MonoBehaviour
     private void Start()
     {
         parent = GetComponentInParent<CharacterController>();
+
+        selectedBombPrefab = safeBombPrefab;
     }
 
     private void Update()
@@ -33,7 +36,7 @@ public class BombShooter : MonoBehaviour
         {
             if (!bombInHand)
             {
-                bomb = Instantiate(bombPrefab, spawnPoint.position, spawnPoint.rotation);
+                bomb = Instantiate(selectedBombPrefab, spawnPoint.position, spawnPoint.rotation);
                 bombRigidbody = bomb.GetComponent<Rigidbody>();
                 bombRigidbody.isKinematic = true;
                 bomb.transform.SetParent(spawnPoint);

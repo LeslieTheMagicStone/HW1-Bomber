@@ -9,11 +9,13 @@ public class Bomb : MonoBehaviour
     const float EXPLODE_RADIUS = 4f;
     const float EXPLODE_TIME = 2f;
     const int DAMAGE = 50;
+    protected float explodeTimer = EXPLODE_TIME;
+    protected bool isFired = false;
 
     [SerializeField]
-    private BombImpact impactPrefab;
+    protected BombImpact impactPrefab;
     [SerializeField]
-    private ParticleSystem boom;
+    protected ParticleSystem boom;
 
     private IEnumerator Start()
     {
@@ -33,22 +35,36 @@ public class Bomb : MonoBehaviour
         isReady = true;
     }
 
+    private void Update()
+    {
+        if (isFired)
+        {
+            explodeTimer -= Time.deltaTime;
+        }
+        if (explodeTimer <= 0f)
+        {
+            Explode();
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = new(1f, 0, 0, 0.25f);
         Gizmos.DrawSphere(transform.position, EXPLODE_RADIUS);
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (isFired)
+        {
+            explodeTimer = 0.1f;
+        }
+    }
+
     public void Fire()
     {
         if (!isReady) return;
-        StartCoroutine(FireCoroutine());
-    }
-
-    private IEnumerator FireCoroutine()
-    {
-        yield return new WaitForSeconds(EXPLODE_TIME);
-        Explode();
+        isFired = true;
     }
 
     protected virtual void Explode()
