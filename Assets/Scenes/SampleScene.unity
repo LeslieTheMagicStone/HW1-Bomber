@@ -379,6 +379,8 @@ MonoBehaviour:
   spawnPoint: {fileID: 1963865118}
   monsterPrefab: {fileID: 4249087769912492182, guid: 2b46a3260ba76f444832a60ef0c8846a,
     type: 3}
+  spawnMonster: 0
+  spawnVoxel: 0
 --- !u!4 &247316965
 Transform:
   m_ObjectHideFlags: 0
@@ -1512,7 +1514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 696259513}
-  rotateSpeed: 5
+  rotateSpeed: 45
 --- !u!1 &1963865117
 GameObject:
   m_ObjectHideFlags: 0

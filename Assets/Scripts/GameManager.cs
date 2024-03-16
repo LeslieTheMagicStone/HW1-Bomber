@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     MonsterLogic monsterPrefab;
 
+    public bool spawnMonster = true;
+    public bool spawnVoxel = true;
     const float SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE = 0.005f;
     const float MAX_SPAWN_MONSTER_INTERVAL = 3f;
     private float spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL;
@@ -49,36 +51,42 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE * Time.time);
-
-        if (spawnMonsterTimer <= 0f)
+        if (spawnMonster)
         {
-            var monster = Instantiate(monsterPrefab);
-            Vector3 randomPos = new(Random.Range(-xSize + 1f, xSize - 1f), 10f, Random.Range(-zSize + 1f, zSize - 1f));
-            monster.transform.position = randomPos;
-            spawnMonsterTimer = spawnMonsterInterval;
-        }
-        spawnMonsterTimer -= Time.deltaTime;
+            spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE * Time.time);
 
-        spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL * Mathf.Exp(-SPAWN_VOXEL_INTERVAL_CONVERGENCE_RATE * Time.time);
-
-        if (spawnVoxelTimer <= 0f)
-        {
-            for (int x = -xSize; x <= xSize; x++)
+            if (spawnMonsterTimer <= 0f)
             {
-                for (int z = -zSize; z <= zSize; z++)
+                var monster = Instantiate(monsterPrefab);
+                Vector3 randomPos = new(Random.Range(-xSize + 1f, xSize - 1f), 10f, Random.Range(-zSize + 1f, zSize - 1f));
+                monster.transform.position = randomPos;
+                spawnMonsterTimer = spawnMonsterInterval;
+            }
+            spawnMonsterTimer -= Time.deltaTime;
+        }
+
+        if (spawnVoxel)
+        {
+            spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL * Mathf.Exp(-SPAWN_VOXEL_INTERVAL_CONVERGENCE_RATE * Time.time);
+
+            if (spawnVoxelTimer <= 0f)
+            {
+                for (int x = -xSize; x <= xSize; x++)
                 {
-                    for (int y = 0; y < 1; y++)
+                    for (int z = -zSize; z <= zSize; z++)
                     {
-                        GameObject cube = Instantiate(voxelPrefab);
-                        cube.transform.SetParent(spawnPoint);
-                        cube.transform.localPosition = new(x, y + 1f, z);
-                        cube.name = "Cube(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+                        for (int y = 0; y < 1; y++)
+                        {
+                            GameObject cube = Instantiate(voxelPrefab);
+                            cube.transform.SetParent(spawnPoint);
+                            cube.transform.localPosition = new(x, y + 1f, z);
+                            cube.name = "Cube(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+                        }
                     }
                 }
+                spawnVoxelTimer = spawnVoxelInterval;
             }
-            spawnVoxelTimer = spawnVoxelInterval;
+            spawnVoxelTimer -= Time.deltaTime;
         }
-        spawnVoxelTimer -= Time.deltaTime;
     }
 }

@@ -18,13 +18,9 @@ public class BombShooter : MonoBehaviour
     private bool bombInHand = false;
     private Bomb bomb;
     private Rigidbody bombRigidbody;
-    // Used to get the base velocity of the bomb.
-    private CharacterController parent;
 
     private void Start()
     {
-        parent = GetComponentInParent<CharacterController>();
-
         selectedBombPrefab = bombPrefab;
         displayBase.Display(selectedBombPrefab);
     }
@@ -69,14 +65,14 @@ public class BombShooter : MonoBehaviour
             // d = v0 * cos(theta) * t
             // v^2 * 2sin(theta)cos(theta) / g = d
             // v = sqrt(d * g / 2sin(theta)cos(theta))
-            var s = hit.transform.position - transform.position;
+            var s = hit.point - bomb.transform.position;
             s.y = 0;
             float distance = s.magnitude;
             float theta = (90f - Vector3.Angle(bomb.transform.up, Vector3.up)) * Mathf.Deg2Rad;
             float g = math.abs(Physics.gravity.y);
             float speed = math.sqrt(distance * g / (2 * math.sin(theta) * math.cos(theta)));
 
-            bombRigidbody.velocity = speed * bomb.transform.up - parent.velocity;
+            bombRigidbody.velocity = speed * bomb.transform.up;
             bomb.Fire();
         }
 
