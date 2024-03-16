@@ -14,7 +14,9 @@ public class PlayerLogic : MonoBehaviour
 
     const float SPEED = 5.0f;
     const float GRAVITY = 30.0f;
-    const float JUMP_SPEED = 15.0f;
+    const float JUMP_HEIGHT = 2.0f;
+    // v0^2/2g = h => v0 = sqrt(2gh)
+    readonly float JUMP_SPEED = Mathf.Sqrt(2 * GRAVITY * JUMP_HEIGHT);
 
     const float INPUT_ROTATION_DEGREE = 45f;
 
