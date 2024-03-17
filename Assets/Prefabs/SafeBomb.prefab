@@ -100,6 +100,8 @@ MonoBehaviour:
   impactPrefab: {fileID: -4566342241998188949, guid: d950cfc846738f24b802c3064d3f3098,
     type: 3}
   boom: {fileID: 3542845860484663738}
+  boomAudios:
+  - {fileID: 8300000, guid: fc25f37607e9a234abc71bf99a258c6a, type: 3}
   maxRadius: 12
 --- !u!198 &3542845860484663738 stripped
 ParticleSystem:

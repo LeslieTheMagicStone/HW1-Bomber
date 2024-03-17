@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
     private int health;
     [SerializeField] private Canvas damageTextPrefab;
     [SerializeField] private ParticleSystem deathEffectPrefab;
+    [SerializeField] private AudioClip[] deathAudios;
 
     private void Start()
     {
@@ -38,6 +39,11 @@ public class Damageable : MonoBehaviour
         if (deathEffectPrefab != null)
         {
             Instantiate(deathEffectPrefab, transform.position, transform.rotation);
+        }
+        if (deathAudios.Length != 0 && Random.Range(0, 5) == 0)
+        {
+            int randIndex = Random.Range(0, deathAudios.Length);
+            AudioManager.instance.Play(deathAudios[randIndex], 0.1f);
         }
 
         Destroy(gameObject);

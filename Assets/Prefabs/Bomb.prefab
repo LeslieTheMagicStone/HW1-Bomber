@@ -261,6 +261,8 @@ MonoBehaviour:
   impactPrefab: {fileID: -4566342241998188949, guid: d950cfc846738f24b802c3064d3f3098,
     type: 3}
   boom: {fileID: 1480600443167915849}
+  boomAudios:
+  - {fileID: 8300000, guid: fc25f37607e9a234abc71bf99a258c6a, type: 3}
 --- !u!1 &6182695943554152115
 GameObject:
   m_ObjectHideFlags: 0

@@ -146,9 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c241332f3a34b4fb097175a6b6718b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 50
   showTextFrequency: 0
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
   deathEffectPrefab: {fileID: 1888440889154658094, guid: 35ff8f8b757db4e41ae3992a82e21156,
     type: 3}
+  deathAudios:
+  - {fileID: 8300000, guid: 4e1e1512351202c4981065440097f732, type: 3}
