@@ -6,7 +6,7 @@ public class TimeLogic : MonoBehaviour
     [SerializeField] private Light directionalLight;
     [SerializeField] private Transform pinLight;
     [SerializeField] private Transform pinCenter;
-    const float MAX_TIME = 100f;
+    const float MAX_TIME = 60f;
     const float MAX_TEMPERATURE = 5000f;
     const float MIN_TEMPERATURE = 1500f;
     public float time = MAX_TIME;

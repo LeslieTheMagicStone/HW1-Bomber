@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public bool spawnMonster = true;
     public bool spawnVoxel = true;
-    const float SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE = 0.005f;
+    const float SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE = 0.01f;
     const float MAX_SPAWN_MONSTER_INTERVAL = 3f;
     private float spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL;
     private float spawnMonsterTimer = MAX_SPAWN_MONSTER_INTERVAL;
@@ -146,9 +146,9 @@ public class GameManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneReloader.instance.Reload();
     }
 
     private void Win()

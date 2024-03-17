@@ -8,7 +8,7 @@ public class Bomb : MonoBehaviour
 
     const float SPAWN_ANIM_TIME = 0.3f;
     const float EXPLODE_RADIUS = 4f;
-    const float EXPLODE_TIME = 2f;
+    const float EXPLODE_TIME = 1.5f;
     const int DAMAGE = 50;
     protected float explodeTimer = EXPLODE_TIME;
     protected bool isFired = false;
@@ -57,7 +57,7 @@ public class Bomb : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision other)
     {
-        if (isFired && explodeTimer / EXPLODE_TIME <= 0.9f)
+        if (isFired && explodeTimer / EXPLODE_TIME <= 0.95f)
         {
             explodeTimer = 0.01f;
         }
@@ -84,7 +84,7 @@ public class Bomb : MonoBehaviour
 
         BombImpact impact = Instantiate(impactPrefab, null);
         var damageField = impact.AddComponent<DamageField>();
-        damageField.damage = 50;
+        damageField.damage = DAMAGE;
         damageField.canDestroyVoxel = true;
         Destroy(damageField, 0.5f * impact.duration);
         impact.transform.position = transform.position;

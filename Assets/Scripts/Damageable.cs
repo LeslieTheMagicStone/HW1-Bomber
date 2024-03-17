@@ -40,7 +40,7 @@ public class Damageable : MonoBehaviour
         if (deathEffectPrefab != null)
         {
             Transform particlePool = GameObject.FindWithTag("ParticlePool").transform;
-            if (particlePool.childCount >= 900)
+            if (particlePool.childCount >= 900 && CompareTag("Voxel"))
             {
                 var effect = particlePool.GetChild(Random.Range(0, particlePool.childCount));
                 effect.GetComponent<ParticleSystem>().Play();

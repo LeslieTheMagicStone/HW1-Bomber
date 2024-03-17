@@ -627,6 +627,7 @@ MonoBehaviour:
   upgradePrefabs:
   - {fileID: 6928961560500407150, guid: 54fd2e139430a7f419ee65d5608bf602, type: 3}
   - {fileID: 6928961560500407150, guid: d88701539cb2c784c8705d93c68e424c, type: 3}
+  - {fileID: 6928961560500407150, guid: f70dc1546d1ffc541825bdd040880a2a, type: 3}
   crusher: {fileID: 1955667430}
   timeLogic: {fileID: 957391471}
 --- !u!4 &247316965
@@ -658,7 +659,7 @@ GameObject:
   - component: {fileID: 265332701}
   m_Layer: 0
   m_Name: PlayerModelBase
-  m_TagString: Voxel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8495,6 +8496,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041662122}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2086542123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2086542124}
+  - component: {fileID: 2086542125}
+  m_Layer: 0
+  m_Name: SceneReloader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2086542124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086542123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2086542125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086542123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a24cede59d11cf4daa156799993f46e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2094927061
 GameObject:
   m_ObjectHideFlags: 0
@@ -8654,7 +8699,7 @@ GameObject:
   - component: {fileID: 1724379201}
   m_Layer: 0
   m_Name: DisplayBase
-  m_TagString: Voxel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8729,3 +8774,4 @@ SceneRoots:
   - {fileID: 2015928128}
   - {fileID: 618693928}
   - {fileID: 356807544}
+  - {fileID: 2086542124}

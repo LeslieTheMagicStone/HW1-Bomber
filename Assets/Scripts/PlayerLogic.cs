@@ -48,7 +48,11 @@ public class PlayerLogic : MonoBehaviour
                     speed *= 1.2f;
                     break;
                 case UpgradeEffect.REDUCE_CD:
-                    GetComponentInChildren<BombShooter>().maxShootCooldown *= 0.5f;
+                    GetComponentInChildren<BombShooter>().maxShootCooldown *= 0.8f;
+                    break;
+                case UpgradeEffect.CURE:
+                    var dam = GetComponent<Damageable>();
+                    dam.health = Mathf.Max(dam.maxHealth, dam.health + 50);
                     break;
             }
             Instantiate(upgrade.upgradeParticle, upgrade.transform.position, upgrade.transform.rotation);
