@@ -61,12 +61,19 @@ public class PlayerLogic : MonoBehaviour
 
         velocity.y -= GRAVITY * Time.deltaTime;
 
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 playerPos = Camera.main.WorldToScreenPoint(transform.position);
-        Vector3 distance = mousePos - playerPos;
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+        var pos = hit.point;
+        pos.y = transform.position.y;
+        transform.LookAt(pos);
 
-        float degree = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, INPUT_ROTATION_DEGREE - 90 - degree, 0);
+        /* Legacy */
+        // Vector3 mousePos = Input.mousePosition;
+        // Vector3 playerPos = Camera.main.WorldToScreenPoint(transform.position);
+        // Vector3 distance = mousePos - playerPos;
+
+        // float degree = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg;
+        // transform.rotation = Quaternion.Euler(0, INPUT_ROTATION_DEGREE + 90 - degree, 0);
     }
 
     private void Move()

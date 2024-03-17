@@ -96,7 +96,7 @@ public class BombShooter : MonoBehaviour
             float t = i * 0.05f;
             float z = shootSpeed * t * Mathf.Cos(theta);
             float y = shootSpeed * t * Mathf.Sin(theta) + 0.5f * Physics.gravity.y * t * t;
-            Vector3 pos = transform.parent.parent.rotation * new Vector3(0, y, -z) + spawnPoint.position;
+            Vector3 pos = transform.parent.parent.rotation * new Vector3(0, y, z) + spawnPoint.position;
             tracks[i].position = pos;
         }
     }
