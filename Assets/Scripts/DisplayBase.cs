@@ -9,7 +9,7 @@ public class DisplayBase : MonoBehaviour
     private void Start()
     {
         var playerDam = GameObject.FindWithTag("Player").GetComponent<Damageable>();
-        playerDam.onDeath.AddListener(displayingBomb.Explode);
+        playerDam.onDeath.AddListener(() => displayingBomb.Explode());
     }
 
     public void Display(Bomb bombPrefab)

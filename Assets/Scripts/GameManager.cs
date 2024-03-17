@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DamageField crusher;
     const float CRUSHER_FALL_SPEED = 3.0f;
     private bool isGameOver = false;
+    [SerializeField] private TimeLogic timeLogic;
 
     private void Start()
     {
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<PlayerLogic>();
         playerDam = player.GetComponent<Damageable>();
         playerDam.onDeath.AddListener(GameOver);
+        timeLogic.onComplete.AddListener(Win);
     }
 
     private void Update()
@@ -124,5 +126,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void Win()
+    {
+        PlayerPrefs.SetString("HasWon", "true");
+        spawnMonster = false;
     }
 }

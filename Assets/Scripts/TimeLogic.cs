@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TimeLogic : MonoBehaviour
 {
@@ -9,10 +10,23 @@ public class TimeLogic : MonoBehaviour
     const float MAX_TEMPERATURE = 5000f;
     const float MIN_TEMPERATURE = 1500f;
     public float time = MAX_TIME;
+    public UnityEvent onComplete;
+
+    private void Start()
+    {
+        time = MAX_TIME;
+    }
 
     private void Update()
     {
+        if (time <= 0) return;
+
         time -= Time.deltaTime;
+        if (time <= 0)
+        {
+            onComplete.Invoke();
+            time = 0;
+        }
 
         var temperature = MIN_TEMPERATURE + (MAX_TEMPERATURE - MIN_TEMPERATURE) * (time / MAX_TIME);
         directionalLight.colorTemperature = temperature;
