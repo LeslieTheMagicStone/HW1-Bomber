@@ -45,7 +45,10 @@ public class PlayerLogic : MonoBehaviour
             switch (upgrade.effect)
             {
                 case UpgradeEffect.SPEED_UP:
-                    speed *= 1.5f;
+                    speed *= 1.2f;
+                    break;
+                case UpgradeEffect.REDUCE_CD:
+                    GetComponentInChildren<BombShooter>().maxShootCooldown *= 0.5f;
                     break;
             }
             Instantiate(upgrade.upgradeParticle, upgrade.transform.position, upgrade.transform.rotation);

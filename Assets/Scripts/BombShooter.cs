@@ -11,7 +11,7 @@ public class BombShooter : MonoBehaviour
     [SerializeField] private Transform trackPrefab;
     private Transform[] tracks;
 
-    const float MAX_SHOOT_COOLDOWN = 0.4f;
+    [HideInInspector] public float maxShootCooldown = 0.4f;
     private float shootCooldown = 0f;
 
     private bool bombInHand = false;
@@ -63,7 +63,7 @@ public class BombShooter : MonoBehaviour
             if (!(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))) return;
             if (!bomb.isReady) return;
 
-            shootCooldown = MAX_SHOOT_COOLDOWN;
+            shootCooldown = maxShootCooldown;
             bombInHand = false;
 
             bombRigidbody.isKinematic = false;

@@ -626,6 +626,7 @@ MonoBehaviour:
   spawnUpgrade: 1
   upgradePrefabs:
   - {fileID: 6928961560500407150, guid: 54fd2e139430a7f419ee65d5608bf602, type: 3}
+  - {fileID: 6928961560500407150, guid: d88701539cb2c784c8705d93c68e424c, type: 3}
   crusher: {fileID: 1955667430}
   timeLogic: {fileID: 957391471}
 --- !u!4 &247316965
@@ -7127,6 +7128,7 @@ MonoBehaviour:
   displayBase: {fileID: 1724379201}
   trackPrefab: {fileID: 3856327228332811910, guid: 8de4b6315c2701a4aaec56803f6d7ced,
     type: 3}
+  maxShootCooldown: 0.4
 --- !u!1 &1237998629
 GameObject:
   m_ObjectHideFlags: 0
@@ -8117,6 +8119,7 @@ GameObject:
   - component: {fileID: 1955667425}
   - component: {fileID: 1955667429}
   - component: {fileID: 1955667430}
+  - component: {fileID: 1955667431}
   m_Layer: 2
   m_Name: Ceiling
   m_TagString: Untagged
@@ -8239,6 +8242,33 @@ MonoBehaviour:
   canDestroyVoxel: 1
   damage: 1000
   dizzyTime: 0
+--- !u!54 &1955667431
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955667424}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1963865117
 GameObject:
   m_ObjectHideFlags: 0

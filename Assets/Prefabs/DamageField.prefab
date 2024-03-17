@@ -118,6 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b5d5f0a4c5f364e841c18b22e72618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDestroyVoxel: 0
   damage: 0
-  isEnemy: 1
   dizzyTime: 0

@@ -20,6 +20,11 @@ public class DamageField : MonoBehaviour
             other.GetComponent<MonsterLogic>().SetUnmovable(dizzyTime);
         }
 
+        if (other.CompareTag("Upgrade"))
+        {
+            other.GetComponent<Damageable>().TakeDamage(damage);
+        }
+
         if (canDestroyVoxel && other.CompareTag("Voxel"))
         {
             other.GetComponent<Damageable>().TakeDamage(damage);

@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     private Vector3 GetRandomPos()
     {
-        return new(Random.Range(-xSize + 1f, xSize - 1f), 14f, Random.Range(-zSize + 1f, zSize - 1f));
+        return new(Random.Range(-xSize + 1f, xSize - 1f), 11f, Random.Range(-zSize + 1f, zSize - 1f));
     }
 
     private void GameOver()
