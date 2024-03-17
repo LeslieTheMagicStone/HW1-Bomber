@@ -74,6 +74,13 @@ public class BombShooter : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        foreach (var track in tracks)
+            if (track != null)
+                Destroy(track.gameObject);
+    }
+
     private void UpdateShootSpeed()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);

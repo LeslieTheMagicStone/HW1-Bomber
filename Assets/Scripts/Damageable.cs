@@ -1,16 +1,15 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
+    public UnityEvent onDeath;
     public int maxHealth = 100;
     public float showTextFrequency = 1.0f;
     private int health;
-    [SerializeField]
-    private Canvas damageTextPrefab;
-    [SerializeField]
-    private ParticleSystem deathEffectPrefab;
+    [SerializeField] private Canvas damageTextPrefab;
+    [SerializeField] private ParticleSystem deathEffectPrefab;
 
     private void Start()
     {
@@ -35,6 +34,7 @@ public class Damageable : MonoBehaviour
 
     private void Die()
     {
+        onDeath.Invoke();
         if (deathEffectPrefab != null)
         {
             Instantiate(deathEffectPrefab, transform.position, transform.rotation);

@@ -67,7 +67,7 @@ public class Bomb : MonoBehaviour
         isFired = true;
     }
 
-    protected virtual void Explode()
+    public virtual void Explode()
     {
         var damageColliders = Physics.OverlapSphere(transform.position, EXPLODE_RADIUS);
 

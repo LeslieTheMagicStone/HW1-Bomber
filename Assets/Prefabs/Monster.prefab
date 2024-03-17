@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 8832606903238779712}
   m_Layer: 0
   m_Name: Monster
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -262,6 +262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c241332f3a34b4fb097175a6b6718b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 50
   showTextFrequency: 1
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,

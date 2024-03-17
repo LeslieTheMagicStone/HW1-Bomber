@@ -435,8 +435,9 @@ MonoBehaviour:
   spawnPoint: {fileID: 1963865118}
   monsterPrefab: {fileID: 4249087769912492182, guid: 2b46a3260ba76f444832a60ef0c8846a,
     type: 3}
-  spawnMonster: 0
-  spawnVoxel: 0
+  spawnMonster: 1
+  spawnVoxel: 1
+  crusher: {fileID: 1955667430}
 --- !u!4 &247316965
 Transform:
   m_ObjectHideFlags: 0
@@ -1293,6 +1294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c241332f3a34b4fb097175a6b6718b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 500
   showTextFrequency: 1
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
@@ -1536,7 +1540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1237998630
 Transform:
   m_ObjectHideFlags: 0
@@ -2043,8 +2047,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b5d5f0a4c5f364e841c18b22e72618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDestroyVoxel: 0
   damage: 1000
-  isEnemy: 1
   dizzyTime: 0
 --- !u!114 &1724379201
 MonoBehaviour:
@@ -2295,7 +2299,7 @@ Transform:
   m_GameObject: {fileID: 1955667424}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 14.5, z: 0}
+  m_LocalPosition: {x: 0, y: 12.5, z: 0}
   m_LocalScale: {x: 31, y: 1, z: 31}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2327,8 +2331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b5d5f0a4c5f364e841c18b22e72618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDestroyVoxel: 1
   damage: 1000
-  isEnemy: 1
   dizzyTime: 0
 --- !u!1 &1963865117
 GameObject:

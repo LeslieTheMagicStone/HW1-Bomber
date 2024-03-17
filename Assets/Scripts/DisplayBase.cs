@@ -1,12 +1,16 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DisplayBase : MonoBehaviour
 {
-    [SerializeField]
-    Transform spawnPoint;
-    Bomb displayingBomb;
+    [SerializeField] private Transform spawnPoint;
+    private Bomb displayingBomb;
     public float rotateSpeed = 25f;
+
+    private void Start()
+    {
+        var playerDam = GameObject.FindWithTag("Player").GetComponent<Damageable>();
+        playerDam.onDeath.AddListener(displayingBomb.Explode);
+    }
 
     public void Display(Bomb bombPrefab)
     {

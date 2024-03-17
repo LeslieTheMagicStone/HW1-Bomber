@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +24,12 @@ public class GameManager : MonoBehaviour
     const float MAX_SPAWN_VOXEL_INTERVAL = 5f;
     private float spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL;
     private float spawnVoxelTimer = MAX_SPAWN_VOXEL_INTERVAL;
+
+    private PlayerLogic player;
+    private Damageable playerDam;
+    [SerializeField] private DamageField crusher;
+    const float CRUSHER_FALL_SPEED = 3.0f;
+    private bool isGameOver = false;
 
     private void Start()
     {
@@ -47,10 +55,16 @@ public class GameManager : MonoBehaviour
         forwardWall.transform.localScale = new(3 * xSize, 100f, 4f);
         var backWall = Instantiate(wallPrefab, new Vector3(0, 0, zSize + 2.5f), Quaternion.identity);
         backWall.transform.localScale = new(3 * xSize, 100f, 4f);
+
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerLogic>();
+        playerDam = player.GetComponent<Damageable>();
+        playerDam.onDeath.AddListener(GameOver);
     }
 
     private void Update()
     {
+        if (isGameOver) return;
+
         if (spawnMonster)
         {
             spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE * Time.time);
@@ -88,5 +102,27 @@ public class GameManager : MonoBehaviour
             }
             spawnVoxelTimer -= Time.deltaTime;
         }
+
+    }
+
+    private void GameOver()
+    {
+        StartCoroutine(GameOverCoroutine());
+    }
+
+    private IEnumerator GameOverCoroutine()
+    {
+        isGameOver = true;
+
+        crusher.canDestroyVoxel = true;
+        while (crusher.transform.position.y > 0f)
+        {
+            crusher.transform.Translate(0, -CRUSHER_FALL_SPEED * Time.deltaTime, 0);
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

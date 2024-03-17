@@ -7,7 +7,7 @@ class SafeBomb : Bomb
         
     }
 
-    protected override void Explode()
+    public override void Explode()
     {
         BombImpact impact = Instantiate(impactPrefab, null);
         impact.transform.position = transform.position;
