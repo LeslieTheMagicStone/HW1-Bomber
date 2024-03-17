@@ -621,7 +621,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1963865118}
   monsterPrefab: {fileID: 4249087769912492182, guid: 2b46a3260ba76f444832a60ef0c8846a,
     type: 3}
-  spawnMonster: 0
+  spawnMonster: 1
   spawnVoxel: 1
   spawnUpgrade: 1
   upgradePrefabs:

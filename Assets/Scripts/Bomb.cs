@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -73,15 +74,19 @@ public class Bomb : MonoBehaviour
         var damageColliders = Physics.OverlapSphere(transform.position, EXPLODE_RADIUS);
 
         // Handle damage behavior.
-        foreach (var collider in damageColliders)
-        {
-            if (collider.TryGetComponent(out Damageable damageable))
-            {
-                damageable.TakeDamage(DAMAGE);
-            }
-        }
+        // foreach (var collider in damageColliders)
+        // {
+        //     if (collider.TryGetComponent(out Damageable damageable))
+        //     {
+        //         damageable.TakeDamage(DAMAGE);
+        //     }
+        // }
 
         BombImpact impact = Instantiate(impactPrefab, null);
+        var damageField = impact.AddComponent<DamageField>();
+        damageField.damage = 50;
+        damageField.canDestroyVoxel = true;
+        Destroy(damageField, 0.5f * impact.duration);
         impact.transform.position = transform.position;
 
         // Boom animation.
