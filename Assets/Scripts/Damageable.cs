@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
-    public UnityEvent onDeath;
+    public UnityEvent onDeath, onHurt;
     public int maxHealth = 100;
     public float showTextFrequency = 1.0f;
     private int health;
@@ -19,6 +19,7 @@ public class Damageable : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        onHurt.Invoke();
         if (Random.Range(0, 1f) <= showTextFrequency)
         {
             var canvas = Instantiate(damageTextPrefab, transform.position, damageTextPrefab.transform.rotation);
