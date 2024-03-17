@@ -39,7 +39,18 @@ public class Damageable : MonoBehaviour
         onDeath.Invoke();
         if (deathEffectPrefab != null)
         {
-            Instantiate(deathEffectPrefab, transform.position, transform.rotation);
+            Transform particlePool = GameObject.FindWithTag("ParticlePool").transform;
+            if (particlePool.childCount >= 900)
+            {
+                var effect = particlePool.GetChild(Random.Range(0, particlePool.childCount));
+                effect.GetComponent<ParticleSystem>().Play();
+                effect.position = transform.position;
+            }
+            else
+            {
+                var effect = Instantiate(deathEffectPrefab, transform.position, transform.rotation);
+                effect.transform.SetParent(particlePool);
+            }
         }
         if (deathAudios.Length != 0 && Random.Range(0, 5) == 0)
         {
