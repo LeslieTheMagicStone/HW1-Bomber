@@ -4,29 +4,40 @@ using UnityEngine;
 
 public class BombShooter : MonoBehaviour
 {
-    [SerializeField]
-    private Bomb bombPrefab, safeBombPrefab;
+    [SerializeField] private Bomb bombPrefab, safeBombPrefab;
     private Bomb selectedBombPrefab;
-    [SerializeField]
-    private Transform spawnPoint;
-    [SerializeField]
-    private DisplayBase displayBase;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private DisplayBase displayBase;
+    [SerializeField] private Transform trackPrefab;
+    private Transform[] tracks;
 
     const float MAX_SHOOT_COOLDOWN = 0.4f;
     private float shootCooldown = 0f;
 
     private bool bombInHand = false;
     private Bomb bomb;
+    private float shootSpeed;
+    float theta => (90f - Vector3.Angle(spawnPoint.transform.up, Vector3.up)) * Mathf.Deg2Rad;
     private Rigidbody bombRigidbody;
 
     private void Start()
     {
         selectedBombPrefab = bombPrefab;
         displayBase.Display(selectedBombPrefab);
+
+        tracks = new Transform[40];
+        for (int i = 0; i < 40; i++)
+        {
+            tracks[i] = Instantiate(trackPrefab);
+            tracks[i].name = "Track " + i.ToString();
+        }
     }
 
     private void Update()
     {
+        UpdateShootSpeed();
+        DrawTracks();
+
         if (Input.GetMouseButtonDown(1))
         {
             if (selectedBombPrefab == bombPrefab) selectedBombPrefab = safeBombPrefab;
@@ -55,28 +66,38 @@ public class BombShooter : MonoBehaviour
             shootCooldown = MAX_SHOOT_COOLDOWN;
             bombInHand = false;
 
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (!Physics.Raycast(ray, out RaycastHit hit)) return;
-
             bombRigidbody.isKinematic = false;
             bomb.transform.SetParent(null);
 
-            // t = 2 * v0 * sin(theta) / g
-            // d = v0 * cos(theta) * t
-            // v^2 * 2sin(theta)cos(theta) / g = d
-            // v = sqrt(d * g / 2sin(theta)cos(theta))
-            var s = hit.point - bomb.transform.position;
-            s.y = 0;
-            float distance = s.magnitude;
-            float theta = (90f - Vector3.Angle(bomb.transform.up, Vector3.up)) * Mathf.Deg2Rad;
-            float g = math.abs(Physics.gravity.y);
-            float speed = math.sqrt(distance * g / (2 * math.sin(theta) * math.cos(theta)));
-
-            bombRigidbody.velocity = speed * bomb.transform.up;
+            bombRigidbody.velocity = shootSpeed * bomb.transform.up;
             bomb.Fire();
         }
-
-
     }
 
+    private void UpdateShootSpeed()
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+        // t = 2 * v0 * sin(theta) / g
+        // d = v0 * cos(theta) * t
+        // v0^2 * 2sin(theta)cos(theta) / g = d
+        // v0 = sqrt(d * g / 2sin(theta)cos(theta))
+        var s = hit.point - spawnPoint.position;
+        s.y = 0;
+        float distance = s.magnitude;
+        float g = math.abs(Physics.gravity.y);
+        shootSpeed = math.sqrt(distance * g / (2 * math.sin(theta) * math.cos(theta)));
+    }
+
+    private void DrawTracks()
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            float t = i * 0.05f;
+            float z = shootSpeed * t * Mathf.Cos(theta);
+            float y = shootSpeed * t * Mathf.Sin(theta) + 0.5f * Physics.gravity.y * t * t;
+            Vector3 pos = transform.parent.parent.rotation * new Vector3(0, y, -z) + spawnPoint.position;
+            tracks[i].position = pos;
+        }
+    }
 }
