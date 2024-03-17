@@ -8,6 +8,7 @@ TagManager:
   - Voxel
   - Enemy
   - ColliderCast
+  - Upgrade
   layers:
   - Default
   - TransparentFX

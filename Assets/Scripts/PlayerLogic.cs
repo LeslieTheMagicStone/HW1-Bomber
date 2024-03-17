@@ -12,7 +12,7 @@ public class PlayerLogic : MonoBehaviour
 
     public Vector3 velocity;
 
-    const float SPEED = 5.0f;
+    private float speed = 5.0f;
     const float GRAVITY = 50.0f;
     const float JUMP_HEIGHT = 2.0f;
     // v0^2/2g = h => v0 = sqrt(2gh)
@@ -36,6 +36,22 @@ public class PlayerLogic : MonoBehaviour
         Move();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Upgrade"))
+        {
+            var upgrade = other.GetComponent<Upgrade>();
+            switch (upgrade.effect)
+            {
+                case UpgradeEffect.SPEED_UP:
+                    speed *= 1.2f;
+                    break;
+            }
+            Instantiate(upgrade.upgradeParticle, upgrade.transform.position, upgrade.transform.rotation);
+            Destroy(upgrade.gameObject);
+        }
+    }
+
     private void UpdateTimers()
     {
         if (unmovableTimer > 0)
@@ -48,8 +64,8 @@ public class PlayerLogic : MonoBehaviour
     {
         if (isMovable)
         {
-            velocity.x = Input.GetAxis("Horizontal") * SPEED;
-            velocity.z = Input.GetAxis("Vertical") * SPEED;
+            velocity.x = Input.GetAxis("Horizontal") * speed;
+            velocity.z = Input.GetAxis("Vertical") * speed;
             velocity = Quaternion.Euler(0f, INPUT_ROTATION_DEGREE, 0f) * velocity;
 
             if (Input.GetKeyDown(KeyCode.Space))

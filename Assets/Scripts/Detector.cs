@@ -1,15 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
     public bool detected => detectedCount > 0;
-    private int detectedCount = 0;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Voxel") || other.CompareTag("Ground"))
-            detectedCount++;
-    }
+    private int detectedCount;
 
     private void OnDrawGizmos()
     {
@@ -17,9 +12,14 @@ public class Detector : MonoBehaviour
         Gizmos.DrawCube(transform.position, transform.lossyScale);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void FixedUpdate()
+    {
+        detectedCount = 0;
+    }
+
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Voxel") || other.CompareTag("Ground"))
-            detectedCount--;
+            detectedCount++;
     }
 }
