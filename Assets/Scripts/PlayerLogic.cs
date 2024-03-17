@@ -48,6 +48,7 @@ public class PlayerLogic : MonoBehaviour
                     break;
             }
             Instantiate(upgrade.upgradeParticle, upgrade.transform.position, upgrade.transform.rotation);
+            AudioManager.instance.Play(upgrade.upgradeSound);
             Destroy(upgrade.gameObject);
         }
     }
