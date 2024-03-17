@@ -1810,8 +1810,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetAberrationIntensity: 1
   distortionShakeTime: 0.25
-  targetVignetteIntensity: 0
-  vignetteShakeTime: 0.5
+  targetVignetteIntensity: 0.5
+  vignetteShakeAmplitude: 0.05
+  vignetteShakeSpeed: 1
 --- !u!1 &935840174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,6 +1989,7 @@ MonoBehaviour:
       m_Calls: []
   maxHealth: 500
   showTextFrequency: 1
+  health: 0
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
   deathEffectPrefab: {fileID: 1888440889154658094, guid: 7fc7835e15c697441929b840f0827b0f,

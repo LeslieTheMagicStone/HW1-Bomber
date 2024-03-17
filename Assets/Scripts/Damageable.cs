@@ -7,7 +7,7 @@ public class Damageable : MonoBehaviour
     public UnityEvent onDeath, onHurt;
     public int maxHealth = 100;
     public float showTextFrequency = 1.0f;
-    private int health;
+    public int health;
     [SerializeField] private Canvas damageTextPrefab;
     [SerializeField] private ParticleSystem deathEffectPrefab;
     [SerializeField] private AudioClip[] deathAudios;

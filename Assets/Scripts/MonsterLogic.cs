@@ -24,7 +24,7 @@ public class MonsterLogic : MonoBehaviour
     private new Rigidbody rigidbody;
 
     const float SPEED = 3.0f;
-    const float ELEVATE_SPEED = 2.0f;
+    const float ELEVATE_SPEED = 5.0f;
     const float FLOAT_AMPLITUDE = 0.6f;
     const float FALL_SPEED = 3.0f;
     const float ATTACK_RADIUS = 2f;

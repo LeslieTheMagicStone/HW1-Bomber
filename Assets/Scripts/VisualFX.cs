@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -8,11 +10,15 @@ public class VisualFX : MonoBehaviour
     private Volume volume;
     private ChromaticAberration chromaticAberration;
     private Vignette vignette;
+    private Damageable playerDam;
 
     public float targetAberrationIntensity;
     public float distortionShakeTime;
     public float targetVignetteIntensity;
-    public float vignetteShakeTime;
+    private float vignetteBaseIntensity;
+    private float vignetteShakeOffset;
+    public float vignetteShakeAmplitude;
+    public float vignetteShakeSpeed;
 
     private void Start()
     {
@@ -20,14 +26,21 @@ public class VisualFX : MonoBehaviour
         volume.profile.TryGet(out chromaticAberration);
         volume.profile.TryGet(out vignette);
 
-        var playerDam = GameObject.FindWithTag("Player").GetComponent<Damageable>();
+        playerDam = GameObject.FindWithTag("Player").GetComponent<Damageable>();
         playerDam.onHurt.AddListener(ShakeDistortion);
-        playerDam.onHurt.AddListener(ShakeVignette);
+        playerDam.onHurt.AddListener(SetVignette);
+    }
+
+    private void Update()
+    {
+        vignetteShakeOffset = vignetteShakeAmplitude * Mathf.Sin(Time.time * vignetteShakeSpeed);
+        vignette.intensity.Override(vignetteBaseIntensity + vignetteShakeOffset);
     }
 
     private void ShakeDistortion()
     {
         StopCoroutine(ShakeDistortionCoroutine());
+        chromaticAberration.intensity.Override(0f);
         StartCoroutine(ShakeDistortionCoroutine());
     }
 
@@ -52,30 +65,11 @@ public class VisualFX : MonoBehaviour
         }
     }
 
-    private void ShakeVignette()
+    private void SetVignette()
     {
-        StopCoroutine(ShakeVignetteCoroutine());
-        StartCoroutine(ShakeVignetteCoroutine());
-    }
-
-    private IEnumerator ShakeVignetteCoroutine()
-    {
-        float timer = 0;
-
-        while (timer < vignetteShakeTime / 2f)
-        {
-            float scaler = timer / (vignetteShakeTime / 2f);
-            vignette.intensity.Override(targetVignetteIntensity * scaler);
-            timer += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-
-        while (timer > 0)
-        {
-            float scaler = timer / (vignetteShakeTime / 2f);
-            vignette.intensity.Override(targetVignetteIntensity * scaler);
-            timer -= Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
+        float scaler = (float)(playerDam.maxHealth - playerDam.health) / playerDam.maxHealth;
+        // Add an activation function to scaler to make vignette more visible in high health.
+        scaler = Mathf.Log(1 + scaler * (math.E - 1));
+        vignetteBaseIntensity = scaler * targetVignetteIntensity;
     }
 }
