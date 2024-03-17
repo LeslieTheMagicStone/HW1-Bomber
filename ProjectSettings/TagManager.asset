@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Voxel
   - Enemy
+  - ColliderCast
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3957831754183774251}
   - component: {fileID: 1715692073455581768}
   - component: {fileID: 3236921061975670264}
+  - component: {fileID: -8733545109725926636}
   m_Layer: 0
   m_Name: Voxel
   m_TagString: Voxel
@@ -149,11 +150,28 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  onHurt:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 50
   showTextFrequency: 0
+  health: 0
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
   deathEffectPrefab: {fileID: 1888440889154658094, guid: 35ff8f8b757db4e41ae3992a82e21156,
     type: 3}
   deathAudios:
   - {fileID: 8300000, guid: 4e1e1512351202c4981065440097f732, type: 3}
+--- !u!114 &-8733545109725926636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767758095593171909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac2baf3637ec7f41833968a19d7fa63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transParentMaterial: {fileID: 2100000, guid: ee923900e6d570c4b9fe458564654611, type: 2}
