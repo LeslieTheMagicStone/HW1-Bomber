@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
     private float spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL;
     private float spawnVoxelTimer = MAX_SPAWN_VOXEL_INTERVAL;
 
+    public bool spawnUpgrade = true;
+    private float spawnUpgradeInterval = 4f;
+    private float spawnUpgradeTimer = 1f;
+    [SerializeField] private Upgrade[] upgradePrefabs;
+
     private PlayerLogic player;
     private Damageable playerDam;
     [SerializeField] private DamageField crusher;
@@ -74,7 +79,7 @@ public class GameManager : MonoBehaviour
             if (spawnMonsterTimer <= 0f)
             {
                 var monster = Instantiate(monsterPrefab);
-                Vector3 randomPos = new(Random.Range(-xSize + 1f, xSize - 1f), 10f, Random.Range(-zSize + 1f, zSize - 1f));
+                Vector3 randomPos = GetRandomPos();
                 monster.transform.position = randomPos;
                 spawnMonsterTimer = spawnMonsterInterval;
             }
@@ -105,6 +110,24 @@ public class GameManager : MonoBehaviour
             spawnVoxelTimer -= Time.deltaTime;
         }
 
+        if (spawnUpgrade)
+        {
+            if (spawnUpgradeTimer <= 0f)
+            {
+                int randIndex = Random.Range(0, upgradePrefabs.Length);
+                var upgrade = Instantiate(upgradePrefabs[randIndex]);
+                Vector3 randomPos = GetRandomPos();
+                upgrade.transform.position = randomPos;
+                spawnUpgradeTimer = spawnUpgradeInterval;
+            }
+            spawnUpgradeTimer -= Time.deltaTime;
+        }
+
+    }
+
+    private Vector3 GetRandomPos()
+    {
+        return new(Random.Range(-xSize + 1f, xSize - 1f), 14f, Random.Range(-zSize + 1f, zSize - 1f));
     }
 
     private void GameOver()

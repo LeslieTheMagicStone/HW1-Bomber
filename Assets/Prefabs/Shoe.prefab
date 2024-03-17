@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 3133780901142095847}
   - component: {fileID: 265062743281557649}
   - component: {fileID: 6928961560500407150}
+  - component: {fileID: -5386322829432795918}
   m_Layer: 2
   m_Name: Shoe
   m_TagString: Upgrade
@@ -414,6 +415,31 @@ MonoBehaviour:
   upgradeSound: {fileID: 8300000, guid: d022e2e36dccaf84f83bd76c3c7e1ce4, type: 3}
   foot: {fileID: 5027408024173307786}
   buffer: {fileID: 4810040732168269470}
+--- !u!114 &-5386322829432795918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7891664456049869822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c241332f3a34b4fb097175a6b6718b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onHurt:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 50
+  showTextFrequency: 1
+  health: 50
+  damageTextPrefab: {fileID: 0}
+  deathEffectPrefab: {fileID: 1888440889154658094, guid: c70f6b575d7616448a4da25fcbe1f3cf,
+    type: 3}
+  deathAudios: []
 --- !u!1 &8918549135471708044
 GameObject:
   m_ObjectHideFlags: 0

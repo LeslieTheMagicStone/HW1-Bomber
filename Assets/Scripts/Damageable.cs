@@ -20,7 +20,7 @@ public class Damageable : MonoBehaviour
     public void TakeDamage(int damage)
     {
         onHurt.Invoke();
-        if (Random.Range(0, 1f) <= showTextFrequency)
+        if (damageTextPrefab != null && Random.Range(0, 1f) <= showTextFrequency)
         {
             var canvas = Instantiate(damageTextPrefab, transform.position, damageTextPrefab.transform.rotation);
             var tmpro = canvas.GetComponentInChildren<TMP_Text>();
