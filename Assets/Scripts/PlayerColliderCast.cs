@@ -18,6 +18,6 @@ public class PlayerColliderCast : MonoBehaviour
         transform.localScale = scale;
         transform.position = (player.position + Camera.main.transform.position) / 2;
         transform.LookAt(player);
-        transform.Translate(new(0, scale.y / 2, 0), Space.Self);
+        transform.Translate(new(0, scale.y / 2 - player.lossyScale.y / 2, 0), Space.Self);
     }
 }

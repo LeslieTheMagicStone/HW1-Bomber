@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
@@ -7,8 +8,8 @@ public class PlayerLogic : MonoBehaviour
 
     private CharacterController characterController;
 
-    [SerializeField]
-    private Detector foot;
+    [SerializeField] private Detector foot;
+    [SerializeField] private ParticleSystem smoke;
 
     public Vector3 velocity;
 
@@ -44,7 +45,7 @@ public class PlayerLogic : MonoBehaviour
             switch (upgrade.effect)
             {
                 case UpgradeEffect.SPEED_UP:
-                    speed *= 1.2f;
+                    speed *= 1.5f;
                     break;
             }
             Instantiate(upgrade.upgradeParticle, upgrade.transform.position, upgrade.transform.rotation);
@@ -68,6 +69,15 @@ public class PlayerLogic : MonoBehaviour
             velocity.x = Input.GetAxis("Horizontal") * speed;
             velocity.z = Input.GetAxis("Vertical") * speed;
             velocity = Quaternion.Euler(0f, INPUT_ROTATION_DEGREE, 0f) * velocity;
+
+            if (foot.detected && velocity.x != 0f)
+            {
+                if (!smoke.isPlaying) smoke.Play();
+            }
+            else
+            {
+                if (smoke.isPlaying) smoke.Stop();
+            }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
