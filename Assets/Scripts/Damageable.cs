@@ -58,6 +58,7 @@ public class Damageable : MonoBehaviour
             AudioManager.instance.Play(deathAudios[randIndex], 0.1f);
         }
 
-        Destroy(gameObject);
+        if (CompareTag("Voxel")) GameManager.instance.DestroyVoxel(gameObject); 
+        else Destroy(gameObject);
     }
 }

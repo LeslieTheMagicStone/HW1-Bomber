@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,6 +45,10 @@ public class GameManager : MonoBehaviour
     const float WIN_ANIM_TIME = 8.0f;
     const float LIGHT_OFF_TRANSITION_TIME = 1f;
     const float PLAYER_ELEVATE_SPEED = 5f;
+    const bool USE_VOXEL_POOLING = true;
+    private Queue<GameObject> voxelPool = new();
+    const int VOXEL_POOL_CAPACITY = 900;
+    private float maxDeltaTime = 0f;
 
     private void Awake()
     {
@@ -117,10 +122,7 @@ public class GameManager : MonoBehaviour
                     {
                         for (int y = 0; y < 1; y++)
                         {
-                            GameObject cube = Instantiate(voxelPrefab);
-                            cube.transform.SetParent(spawnPoint);
-                            cube.transform.localPosition = new(x, y, z);
-                            cube.name = "Cube(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+                            GenerateVoxel(x, y, z);
                         }
                     }
                 }
@@ -142,6 +144,49 @@ public class GameManager : MonoBehaviour
             spawnUpgradeTimer -= Time.deltaTime;
         }
 
+        if (USE_VOXEL_POOLING)
+            for (int i = 0; i < 15; i++)
+                FillVoxelPool();
+
+        // if (Time.deltaTime > maxDeltaTime) maxDeltaTime = Time.deltaTime;
+        // print("Dt: " + Time.deltaTime + ", Max: " + maxDeltaTime);
+    }
+
+    private void FillVoxelPool()
+    {
+        if (voxelPool.Count >= VOXEL_POOL_CAPACITY) return;
+
+        GameObject voxel = Instantiate(voxelPrefab);
+        voxel.SetActive(false);
+        voxelPool.Enqueue(voxel);
+    }
+
+    public void DestroyVoxel(GameObject voxel)
+    {
+        if (USE_VOXEL_POOLING && voxelPool.Count < VOXEL_POOL_CAPACITY)
+        {
+            voxel.SetActive(false);
+            voxelPool.Enqueue(voxel);
+        }
+        else { Destroy(voxel); };
+    }
+
+    private void GenerateVoxel(float x, float y, float z)
+    {
+        if (!USE_VOXEL_POOLING || voxelPool.Count == 0)
+        {
+            GameObject voxel = Instantiate(voxelPrefab);
+            voxel.transform.SetParent(spawnPoint);
+            voxel.transform.localPosition = new(x, y, z);
+            voxel.name = "Voxel(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+        }
+        else
+        {
+            GameObject voxel = voxelPool.Dequeue();
+            voxel.SetActive(true);
+            voxel.transform.localPosition = new(x, y, z);
+            voxel.name = "Voxel(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+        }
     }
 
     private Vector3 GetRandomPos()

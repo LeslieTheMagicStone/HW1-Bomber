@@ -5871,7 +5871,7 @@ Transform:
   m_GameObject: {fileID: 356807543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 88.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8561,7 +8561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1963865118}
   m_Layer: 0
-  m_Name: Spawn Point
+  m_Name: Voxels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9008,11 +9008,11 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 247316965}
   - {fileID: 330585546}
   - {fileID: 1452503929}
   - {fileID: 832575519}
   - {fileID: 1963865118}
-  - {fileID: 247316965}
   - {fileID: 1395097940}
   - {fileID: 935840178}
   - {fileID: 417454795}
