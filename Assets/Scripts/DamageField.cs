@@ -3,12 +3,13 @@ using UnityEngine;
 public class DamageField : MonoBehaviour
 {
     public bool canDestroyVoxel = false;
+    public bool isFriendly = false;
     public int damage;
     public float dizzyTime;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!isFriendly && other.CompareTag("Player"))
         {
             other.GetComponent<Damageable>().TakeDamage(damage);
             other.GetComponent<PlayerLogic>().SetUnmovable(dizzyTime);

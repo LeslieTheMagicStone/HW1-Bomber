@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public int xSize, zSize, ySize;
     [SerializeField]
     GameObject voxelPrefab, wallPrefab;
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     Transform spawnPoint;
     [SerializeField]
     MonsterLogic monsterPrefab;
+
+    private float startTime = 0f;
 
     public bool spawnMonster = true;
     public bool spawnVoxel = true;
@@ -34,11 +37,27 @@ public class GameManager : MonoBehaviour
     private Damageable playerDam;
     [SerializeField] private DamageField crusher;
     const float CRUSHER_FALL_SPEED = 3.0f;
-    private bool isGameOver = false;
+    public bool isGameOver = false;
     [SerializeField] private TimeLogic timeLogic;
+    [SerializeField] private AudioClip[] winAudios;
+    [SerializeField] private Light spotLight, mainLight;
+    const float WIN_ANIM_TIME = 8.0f;
+    const float LIGHT_OFF_TRANSITION_TIME = 1f;
+    const float PLAYER_ELEVATE_SPEED = 5f;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else Destroy(gameObject);
+    }
 
     private void Start()
     {
+        startTime = Time.time;
+
         for (int x = -xSize; x <= xSize; x++)
         {
             for (int z = -zSize; z <= zSize; z++)
@@ -74,7 +93,7 @@ public class GameManager : MonoBehaviour
 
         if (spawnMonster)
         {
-            spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE * Time.time);
+            spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL * Mathf.Exp(-SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE * (Time.time - startTime));
 
             if (spawnMonsterTimer <= 0f)
             {
@@ -88,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         if (spawnVoxel)
         {
-            spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL * Mathf.Exp(-SPAWN_VOXEL_INTERVAL_CONVERGENCE_RATE * Time.time);
+            spawnVoxelInterval = MAX_SPAWN_VOXEL_INTERVAL * Mathf.Exp(-SPAWN_VOXEL_INTERVAL_CONVERGENCE_RATE * (Time.time - startTime));
 
             if (spawnVoxelTimer <= 0f)
             {
@@ -153,7 +172,41 @@ public class GameManager : MonoBehaviour
 
     private void Win()
     {
+        StartCoroutine(WinCoroutine());
+    }
+
+    private IEnumerator WinCoroutine()
+    {
+        isGameOver = true;
         PlayerPrefs.SetString("HasWon", "true");
-        spawnMonster = false;
+        float timer = 0f;
+        player.SetUnmovable(10f);
+        foreach (var audio in winAudios)
+            AudioManager.instance.Play(audio);
+
+        spotLight.gameObject.SetActive(true);
+        spotLight.transform.position = new(player.transform.position.x, spotLight.transform.position.y, player.transform.position.z);
+        float targetIntensity = spotLight.intensity;
+        spotLight.intensity = 0;
+
+        float originalIntensity = mainLight.intensity;
+
+        crusher.GetComponent<MeshRenderer>().enabled = false;
+        crusher.isFriendly = true;
+
+        while (timer < WIN_ANIM_TIME)
+        {
+            float spotLightScaler = Mathf.Min(1, 4 * timer / WIN_ANIM_TIME);
+            spotLight.intensity = spotLightScaler * targetIntensity;
+            float mainLightScaler = Mathf.Max(0, 1 - timer / LIGHT_OFF_TRANSITION_TIME);
+            mainLight.intensity = mainLightScaler * originalIntensity;
+            float crusherScaler = crusher.transform.position.y > player.transform.position.y ? 3 : 1;
+            crusher.transform.Translate(0, -crusherScaler * CRUSHER_FALL_SPEED * Time.deltaTime, 0);
+            player.velocity = PLAYER_ELEVATE_SPEED * Vector3.up;
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        SceneReloader.instance.Reload();
     }
 }

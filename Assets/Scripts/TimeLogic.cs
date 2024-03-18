@@ -19,6 +19,7 @@ public class TimeLogic : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.isGameOver) return;
         if (time <= 0) return;
 
         time -= Time.deltaTime;
