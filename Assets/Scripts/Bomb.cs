@@ -57,6 +57,7 @@ public class Bomb : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision other)
     {
+        if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Enemy") && !other.gameObject.CompareTag("Voxel")) return;
         if (isFired && explodeTimer / EXPLODE_TIME <= 0.95f)
         {
             explodeTimer = 0.01f;
