@@ -27,8 +27,8 @@ public class MonsterLogic : MonoBehaviour
     const float ELEVATE_SPEED = 5.0f;
     const float FLOAT_AMPLITUDE = 0.6f;
     const float FALL_SPEED = 3.0f;
-    const float ATTACK_RADIUS = 2f;
-    const float ATTACK_DURATION = 1.0f;
+    const float ATTACK_RADIUS = 3f;
+    const float ATTACK_DURATION = 0.5f;
     const float ATTACK_DAMAGE = 20f;
 
     private float behaviorTimer = 0f;

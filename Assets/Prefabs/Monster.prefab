@@ -265,12 +265,17 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  onHurt:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 50
   showTextFrequency: 1
+  health: 0
   damageTextPrefab: {fileID: 5642093332495077696, guid: 55ef3bf3610415648bc31aa11d931158,
     type: 3}
   deathEffectPrefab: {fileID: 1888440889154658094, guid: 7fc7835e15c697441929b840f0827b0f,
     type: 3}
+  deathAudios: []
 --- !u!136 &8832606903238779712
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -325,17 +330,17 @@ PrefabInstance:
     - target: {fileID: 3629290374686018363, guid: 64894555b7f1b954cb7c3a6f99b431f0,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.86
+      value: 4.03
       objectReference: {fileID: 0}
     - target: {fileID: 3629290374686018363, guid: 64894555b7f1b954cb7c3a6f99b431f0,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.86
+      value: 4.03
       objectReference: {fileID: 0}
     - target: {fileID: 3629290374686018363, guid: 64894555b7f1b954cb7c3a6f99b431f0,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.86
+      value: 4.03
       objectReference: {fileID: 0}
     - target: {fileID: 3629290374686018363, guid: 64894555b7f1b954cb7c3a6f99b431f0,
         type: 3}
@@ -345,12 +350,12 @@ PrefabInstance:
     - target: {fileID: 3629290374686018363, guid: 64894555b7f1b954cb7c3a6f99b431f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.68
       objectReference: {fileID: 0}
     - target: {fileID: 3629290374686018363, guid: 64894555b7f1b954cb7c3a6f99b431f0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.45
+      value: 1.23
       objectReference: {fileID: 0}
     - target: {fileID: 3629290374686018363, guid: 64894555b7f1b954cb7c3a6f99b431f0,
         type: 3}
