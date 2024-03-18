@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public bool spawnMonster = true;
     public bool spawnVoxel = true;
-    const float SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE = 0.01f;
+    const float SPAWN_MONSTER_INTERVAL_CONVERGENCE_RATE = 0.02f;
     const float MAX_SPAWN_MONSTER_INTERVAL = 3f;
     private float spawnMonsterInterval = MAX_SPAWN_MONSTER_INTERVAL;
     private float spawnMonsterTimer = MAX_SPAWN_MONSTER_INTERVAL;
