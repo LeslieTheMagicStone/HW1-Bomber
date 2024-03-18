@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -49,6 +50,10 @@ public class GameManager : MonoBehaviour
     private Queue<GameObject> voxelPool = new();
     const int VOXEL_POOL_CAPACITY = 900;
 
+    [HideInInspector] public bool isInfiniteMode = false;
+    [HideInInspector] public float time => Time.time - startTime;
+    [SerializeField] private TMP_Text timeText;
+
     private void Awake()
     {
         if (instance == null)
@@ -94,6 +99,8 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (isGameOver) return;
+
+        UpdateUI();
 
         if (spawnMonster)
         {
@@ -146,6 +153,18 @@ public class GameManager : MonoBehaviour
         if (USE_VOXEL_POOLING)
             for (int i = 0; i < 15; i++)
                 FillVoxelPool();
+    }
+
+    private void UpdateUI()
+    {
+        if (!isInfiniteMode)
+        {
+            timeText.SetText("Time: " + (60f - time).ToString("0.0"));
+        }
+        else
+        {
+            timeText.SetText("Time: " + time.ToString("0.0"));
+        }
     }
 
     private void FillVoxelPool()

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     public bool isReady = false;
-
     const float SPAWN_ANIM_TIME = 0.3f;
     const float EXPLODE_RADIUS = 4f;
     const float EXPLODE_TIME = 1.5f;

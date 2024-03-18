@@ -7,7 +7,7 @@ public class PlayerLogic : MonoBehaviour
 
     private CharacterController characterController;
 
-    [SerializeField] private Detector foot, buffer;
+    [SerializeField] private Detector foot, buffer, jumpDetector;
     [SerializeField] private ParticleSystem smoke;
 
     public Vector3 velocity;
@@ -91,7 +91,7 @@ public class PlayerLogic : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (foot.detected)
+                if (jumpDetector.detected)
                     velocity.y = JUMP_SPEED;
             }
         }
