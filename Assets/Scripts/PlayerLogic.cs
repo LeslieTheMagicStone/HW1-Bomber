@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
@@ -8,7 +7,7 @@ public class PlayerLogic : MonoBehaviour
 
     private CharacterController characterController;
 
-    [SerializeField] private Detector foot;
+    [SerializeField] private Detector foot, buffer;
     [SerializeField] private ParticleSystem smoke;
 
     public Vector3 velocity;
@@ -77,6 +76,10 @@ public class PlayerLogic : MonoBehaviour
             velocity.z = Input.GetAxis("Vertical") * speed;
             velocity = Quaternion.Euler(0f, INPUT_ROTATION_DEGREE, 0f) * velocity;
 
+            if (!foot.detected && !buffer.detected) velocity.y -= GRAVITY * Time.deltaTime;
+            if (buffer.detected) velocity.y = 0;
+            if (foot.detected) velocity.y = 1;
+
             if (foot.detected && velocity.x != 0f)
             {
                 if (!smoke.isPlaying) smoke.Play();
@@ -92,8 +95,6 @@ public class PlayerLogic : MonoBehaviour
                     velocity.y = JUMP_SPEED;
             }
         }
-
-        velocity.y -= GRAVITY * Time.deltaTime;
 
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (!Physics.Raycast(ray, out RaycastHit hit)) return;

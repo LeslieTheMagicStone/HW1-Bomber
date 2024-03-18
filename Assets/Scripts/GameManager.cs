@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
     const bool USE_VOXEL_POOLING = true;
     private Queue<GameObject> voxelPool = new();
     const int VOXEL_POOL_CAPACITY = 900;
-    private float maxDeltaTime = 0f;
 
     private void Awake()
     {
@@ -122,7 +121,7 @@ public class GameManager : MonoBehaviour
                     {
                         for (int y = 0; y < 1; y++)
                         {
-                            GenerateVoxel(x, y, z);
+                            GenerateVoxel(x, y + 0.1f, z);
                         }
                     }
                 }
@@ -147,9 +146,6 @@ public class GameManager : MonoBehaviour
         if (USE_VOXEL_POOLING)
             for (int i = 0; i < 15; i++)
                 FillVoxelPool();
-
-        // if (Time.deltaTime > maxDeltaTime) maxDeltaTime = Time.deltaTime;
-        // print("Dt: " + Time.deltaTime + ", Max: " + maxDeltaTime);
     }
 
     private void FillVoxelPool()
