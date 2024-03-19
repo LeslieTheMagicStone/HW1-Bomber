@@ -11,6 +11,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private Canvas damageTextPrefab;
     [SerializeField] private ParticleSystem deathEffectPrefab;
     [SerializeField] private AudioClip[] deathAudios;
+    [SerializeField] private TMP_Text healthText;
 
     private void Start()
     {
@@ -27,7 +28,10 @@ public class Damageable : MonoBehaviour
             tmpro.text = damage.ToString();
         }
 
-        health -= damage;
+        health = Mathf.Max(0, health - damage);
+
+        if (healthText) healthText.SetText("Health: " + health);
+
         if (health <= 0)
         {
             Die();
@@ -58,7 +62,7 @@ public class Damageable : MonoBehaviour
             AudioManager.instance.Play(deathAudios[randIndex], 0.1f);
         }
 
-        if (CompareTag("Voxel")) GameManager.instance.DestroyVoxel(gameObject); 
+        if (CompareTag("Voxel")) GameManager.instance.DestroyVoxel(gameObject);
         else Destroy(gameObject);
     }
 }
