@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -53,6 +55,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isInfiniteMode = false;
     [HideInInspector] public float time => Time.time - startTime;
     [SerializeField] private TMP_Text timeText;
+    [SerializeField] private Button normalModeButton, infiniteModeButton;
+    [SerializeField] private GameObject selectModePanel;
 
     private void Awake()
     {
@@ -65,6 +69,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.GetString("HasWon", "false") == "true")
+        {
+            Time.timeScale = 0f;
+            selectModePanel.SetActive(true);
+            normalModeButton.onClick.AddListener(() => SelectInfiniteMode(false));
+            normalModeButton.onClick.AddListener(() => { Time.timeScale = 1f; selectModePanel.SetActive(false); });
+            infiniteModeButton.onClick.AddListener(() => SelectInfiniteMode(true));
+            infiniteModeButton.onClick.AddListener(() => { Time.timeScale = 1f; selectModePanel.SetActive(false); });
+        }
+
         startTime = Time.time;
 
         for (int x = -xSize; x <= xSize; x++)
@@ -153,6 +167,11 @@ public class GameManager : MonoBehaviour
         if (USE_VOXEL_POOLING)
             for (int i = 0; i < 15; i++)
                 FillVoxelPool();
+    }
+
+    private void SelectInfiniteMode(bool val)
+    {
+        isInfiniteMode = val;
     }
 
     private void UpdateUI()

@@ -19,6 +19,13 @@ public class TimeLogic : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.isInfiniteMode)
+        {
+            if (pinLight.gameObject.activeSelf) pinLight.gameObject.SetActive(false);
+            if (pinCenter.gameObject.activeSelf) pinCenter.gameObject.SetActive(false);
+            return;
+        }
+
         if (GameManager.instance.isGameOver) return;
         if (time <= 0) return;
 
