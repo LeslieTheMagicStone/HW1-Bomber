@@ -93,8 +93,6 @@ public class PlayerLogic : MonoBehaviour
             {
                 if (jumpDetector.detected)
                     velocity.y = JUMP_SPEED;
-                else
-                    print("Key down but no ground.");
             }
         }
 
