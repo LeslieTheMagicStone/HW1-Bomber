@@ -9,6 +9,8 @@ public class BombShooter : MonoBehaviour
     [SerializeField] private DisplayBase displayBase;
     [SerializeField] private Transform trackPrefab;
     private Transform[] tracks;
+    [SerializeField] private Transform targetPointPrefab;
+    private Transform targetPoint;
 
     [HideInInspector] public float maxShootCooldown = 0.4f;
     private float shootCooldown = 0f;
@@ -24,10 +26,11 @@ public class BombShooter : MonoBehaviour
         selectedBombPrefab = bombPrefab;
         displayBase.Display(selectedBombPrefab);
 
+        GameObject tracksParent = new("Tracks");
         tracks = new Transform[40];
         for (int i = 0; i < 40; i++)
         {
-            tracks[i] = Instantiate(trackPrefab);
+            tracks[i] = Instantiate(trackPrefab, tracksParent.transform);
             tracks[i].name = "Track " + i.ToString();
         }
     }
@@ -36,6 +39,7 @@ public class BombShooter : MonoBehaviour
     {
         UpdateShootSpeed();
         DrawTracks();
+        DrawTargetPoint();
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -78,6 +82,8 @@ public class BombShooter : MonoBehaviour
         foreach (var track in tracks)
             if (track != null)
                 Destroy(track.gameObject);
+
+        targetPoint.gameObject.SetActive(false);
     }
 
     private void UpdateShootSpeed()
@@ -93,6 +99,31 @@ public class BombShooter : MonoBehaviour
         float distance = s.magnitude;
         float g = math.abs(Physics.gravity.y);
         shootSpeed = math.sqrt(distance * g / (2 * math.sin(theta) * math.cos(theta)));
+    }
+
+    private void DrawTargetPoint()
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(ray, out RaycastHit hit))
+        {
+            targetPoint.gameObject.SetActive(false);
+            return;
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            if (tracks[i].GetComponent<Detector>().detected)
+            {
+                if (!targetPoint) targetPoint = Instantiate(targetPointPrefab);
+                targetPoint.gameObject.SetActive(true);
+                targetPoint.transform.position = tracks[i > 0 ? i - 1 : i].transform.position;
+                break;
+            }
+        }
     }
 
     private void DrawTracks()

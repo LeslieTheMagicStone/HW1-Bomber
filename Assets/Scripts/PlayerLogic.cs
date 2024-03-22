@@ -70,15 +70,15 @@ public class PlayerLogic : MonoBehaviour
 
     private void UpdateInput()
     {
+        if (!foot.detected && !buffer.detected) velocity.y -= GRAVITY * Time.deltaTime;
+        if (buffer.detected) velocity.y = 0;
+        if (foot.detected) velocity.y = 1;
+
         if (isMovable)
         {
             velocity.x = Input.GetAxis("Horizontal") * speed;
             velocity.z = Input.GetAxis("Vertical") * speed;
             velocity = Quaternion.Euler(0f, INPUT_ROTATION_DEGREE, 0f) * velocity;
-
-            if (!foot.detected && !buffer.detected) velocity.y -= GRAVITY * Time.deltaTime;
-            if (buffer.detected) velocity.y = 0;
-            if (foot.detected) velocity.y = 1;
 
             if (foot.detected && velocity.x != 0f)
             {

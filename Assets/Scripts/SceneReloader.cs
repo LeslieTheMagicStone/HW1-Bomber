@@ -10,7 +10,7 @@ public class SceneReloader : MonoBehaviour
     public static SceneReloader instance;
     [SerializeField] private GameObject transitionPanelPrefab;
     private Image transitionPanel;
-    const float TRANSITION_TIME = 1.0f;
+    const float TRANSITION_TIME = 0.5f;
 
     private void Awake()
     {

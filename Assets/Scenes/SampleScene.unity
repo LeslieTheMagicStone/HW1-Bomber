@@ -455,8 +455,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
+        type: 3}
       propertyPath: m_LocalScale.y
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
@@ -6729,8 +6739,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
+        type: 3}
       propertyPath: m_LocalScale.y
       value: 0.04868
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1130394845411410525, guid: 7b2721c0c3ba2f7418104f8044776909,
         type: 3}
@@ -8108,6 +8128,8 @@ MonoBehaviour:
   spawnPoint: {fileID: 173823094}
   displayBase: {fileID: 1724379201}
   trackPrefab: {fileID: 3856327228332811910, guid: 8de4b6315c2701a4aaec56803f6d7ced,
+    type: 3}
+  targetPointPrefab: {fileID: 7274129129319197208, guid: 866ebfa3ec98ec64b8620a9bbf18fd65,
     type: 3}
   maxShootCooldown: 0.4
 --- !u!1 &1237998629

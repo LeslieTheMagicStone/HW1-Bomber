@@ -102,6 +102,11 @@ public class GameManager : MonoBehaviour
         forwardWall.transform.localScale = new(3 * xSize, 100f, 4f);
         var backWall = Instantiate(wallPrefab, new Vector3(0, 0, zSize + 2.5f), Quaternion.identity);
         backWall.transform.localScale = new(3 * xSize, 100f, 4f);
+        var Walls = new GameObject("Walls");
+        leftWall.transform.SetParent(Walls.transform);
+        rightWall.transform.SetParent(Walls.transform);
+        forwardWall.transform.SetParent(Walls.transform);
+        backWall.transform.SetParent(Walls.transform);
 
         player = GameObject.FindWithTag("Player").GetComponent<PlayerLogic>();
         playerDam = player.GetComponent<Damageable>();
@@ -189,7 +194,7 @@ public class GameManager : MonoBehaviour
     {
         if (voxelPool.Count >= VOXEL_POOL_CAPACITY) return;
 
-        GameObject voxel = Instantiate(voxelPrefab);
+        GameObject voxel = Instantiate(voxelPrefab, spawnPoint);
         voxel.SetActive(false);
         voxelPool.Enqueue(voxel);
     }
