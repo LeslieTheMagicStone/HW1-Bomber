@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public int xSize, zSize, ySize;
     [SerializeField]
-    GameObject voxelPrefab, wallPrefab;
+    GameObject[] voxelPrefabs;
+    [SerializeField]
+    GameObject wallPrefab;
     [SerializeField]
     Transform spawnPoint;
     [SerializeField]
@@ -86,10 +88,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int y = 0; y < ySize; y++)
                 {
-                    GameObject cube = Instantiate(voxelPrefab);
-                    cube.transform.SetParent(spawnPoint);
-                    cube.transform.localPosition = new(x, y + 1f, z);
-                    cube.name = "Cube(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+                    GenerateVoxel(x, y + 1f, z);
                 }
             }
         }
@@ -194,7 +193,7 @@ public class GameManager : MonoBehaviour
     {
         if (voxelPool.Count >= VOXEL_POOL_CAPACITY) return;
 
-        GameObject voxel = Instantiate(voxelPrefab, spawnPoint);
+        GameObject voxel = GenerateVoxel(0f, 0f, 0f);
         voxel.SetActive(false);
         voxelPool.Enqueue(voxel);
     }
@@ -209,14 +208,18 @@ public class GameManager : MonoBehaviour
         else { Destroy(voxel); };
     }
 
-    private void GenerateVoxel(float x, float y, float z)
+    private GameObject GenerateVoxel(float x, float y, float z)
     {
         if (!USE_VOXEL_POOLING || voxelPool.Count == 0)
         {
+            int randIndex = (int)(x + y + z) % voxelPrefabs.Length;
+            if(randIndex<0) randIndex += voxelPrefabs.Length;
+            var voxelPrefab = voxelPrefabs[randIndex];
             GameObject voxel = Instantiate(voxelPrefab);
             voxel.transform.SetParent(spawnPoint);
             voxel.transform.localPosition = new(x, y, z);
             voxel.name = "Voxel(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+            return voxel;
         }
         else
         {
@@ -224,6 +227,7 @@ public class GameManager : MonoBehaviour
             voxel.SetActive(true);
             voxel.transform.localPosition = new(x, y, z);
             voxel.name = "Voxel(" + x.ToString() + "," + y.ToString() + "," + z.ToString() + ")";
+            return voxel;
         }
     }
 
