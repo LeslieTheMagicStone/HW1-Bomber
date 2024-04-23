@@ -5,6 +5,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameState
+{
+    ModeSelecting,
+    Running,
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -59,6 +65,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button normalModeButton, infiniteModeButton;
     [SerializeField] private GameObject selectModePanel;
 
+    [HideInInspector] public GameState gameState = GameState.ModeSelecting;
+
     private void Awake()
     {
         if (instance == null)
@@ -75,9 +83,9 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             selectModePanel.SetActive(true);
             normalModeButton.onClick.AddListener(() => SelectInfiniteMode(false));
-            normalModeButton.onClick.AddListener(() => { Time.timeScale = 1f; selectModePanel.SetActive(false); });
+            normalModeButton.onClick.AddListener(() => { Time.timeScale = 1f; selectModePanel.SetActive(false); gameState = GameState.Running; });
             infiniteModeButton.onClick.AddListener(() => SelectInfiniteMode(true));
-            infiniteModeButton.onClick.AddListener(() => { Time.timeScale = 1f; selectModePanel.SetActive(false); });
+            infiniteModeButton.onClick.AddListener(() => { Time.timeScale = 1f; selectModePanel.SetActive(false); gameState = GameState.Running; });
         }
 
         startTime = Time.time;
@@ -212,9 +220,9 @@ public class GameManager : MonoBehaviour
     {
         if (!USE_VOXEL_POOLING || voxelPool.Count == 0)
         {
-            int randIndex = (int)(x + y + z) % voxelPrefabs.Length;
-            if(randIndex<0) randIndex += voxelPrefabs.Length;
-            var voxelPrefab = voxelPrefabs[randIndex];
+            // int randIndex = (int)(x + y + z) % voxelPrefabs.Length;
+            // if(randIndex<0) randIndex += voxelPrefabs.Length;
+            var voxelPrefab = voxelPrefabs[0];
             GameObject voxel = Instantiate(voxelPrefab);
             voxel.transform.SetParent(spawnPoint);
             voxel.transform.localPosition = new(x, y, z);
