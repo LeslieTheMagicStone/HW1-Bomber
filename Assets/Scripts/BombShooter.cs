@@ -37,6 +37,8 @@ public class BombShooter : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.instance.gameState!= GameState.Running) return;
+
         UpdateShootSpeed();
         DrawTracks();
         DrawTargetPoint();
@@ -83,7 +85,7 @@ public class BombShooter : MonoBehaviour
             if (track != null)
                 Destroy(track.gameObject);
 
-        targetPoint.gameObject.SetActive(false);
+        if (targetPoint != null) targetPoint.gameObject.SetActive(false);
     }
 
     private void UpdateShootSpeed()
